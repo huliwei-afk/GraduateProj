@@ -8,16 +8,22 @@
 
     <!-- Customize dialog for verify code-->
     <style name="verify_dialog" parent="android:style/Theme.Dialog">
-        <!--是否去除标题-->
+        <!-- 是否去除标题 -->
         <item name="android:windowNoTitle">true</item>
-        <!--是否去除边框-->
+        <!-- 是否去除边框 -->
         <item name="android:windowFrame">@null</item>
-        <!--是否浮现在activity之上-->
+        <!-- 是否浮现在activity之上 -->
         <item name="android:windowIsFloating">true</item>
-        <!--背景颜色及和透明程度-->
+        <!-- 背景颜色及和透明程度 -->
         <item name="android:windowBackground">@android:color/transparent</item>
-        <!--是否模糊-->
+        <!-- 是否模糊 -->
         <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!-- dialog 动画-->
+    <style name="dialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/verify_code_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/verify_code_dialog_out</item>
     </style>
 
 </resources>

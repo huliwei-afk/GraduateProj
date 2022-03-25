@@ -53,7 +53,9 @@ class ForgetFragment : Fragment() {
         RxClickUtil.clickEvent(getVerifyCode)
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                context?.let { it -> VerifyCodeDialogManager.showDialog(it) }
+                context?.let { it ->
+                    VerifyCodeDialogManager.showDialog(it)
+                }
             }
 
     }

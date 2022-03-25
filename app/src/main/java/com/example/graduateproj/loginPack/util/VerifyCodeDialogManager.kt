@@ -22,6 +22,7 @@ object VerifyCodeDialogManager {
         window?.apply {
             setGravity(Gravity.BOTTOM)
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.dp2pxInt(context, DIALOG_MAX_HEIGHT))
+            setWindowAnimations(R.style.dialogAnimation)
         }
 
         dialog.show()

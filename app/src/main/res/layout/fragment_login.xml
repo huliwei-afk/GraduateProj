@@ -123,36 +123,46 @@
 
     </RelativeLayout>
 
-
-    <CheckBox
-        android:id="@+id/login_checkBox"
-        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+    <RelativeLayout
+        android:id="@+id/policy_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:theme="@style/login_checkBox"
         app:layout_constraintLeft_toLeftOf="@+id/login_password"
-        app:layout_constraintTop_toBottomOf="@+id/login_password" />
+        app:layout_constraintTop_toBottomOf="@+id/login_password">
 
-    <TextView
-        android:id="@+id/already_read_and_agree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/already_read_and_agree"
-        app:layout_constraintBottom_toBottomOf="@+id/login_checkBox"
-        app:layout_constraintLeft_toRightOf="@+id/login_checkBox"
-        app:layout_constraintTop_toTopOf="@+id/login_checkBox" />
+        <CheckBox
+            android:id="@+id/login_checkBox"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:theme="@style/login_checkBox" />
 
-    <TextView
-        android:id="@+id/environment_policy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/environment_policy"
-        android:textColor="@color/login_blue"
-        app:layout_constraintLeft_toRightOf="@+id/already_read_and_agree"
-        app:layout_constraintTop_toTopOf="@id/already_read_and_agree" />
+        <TextView
+            android:id="@+id/already_read_and_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/login_checkBox"
+            android:text="@string/already_read_and_agree" />
+
+        <TextView
+            android:id="@+id/environment_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/already_read_and_agree"
+            android:text="@string/environment_policy"
+            android:textColor="@color/login_blue"
+            app:layout_constraintLeft_toRightOf="@+id/already_read_and_agree"
+            app:layout_constraintTop_toTopOf="@id/already_read_and_agree" />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -178,7 +188,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/policy_layout"
         app:rcb_backgroundColorNormal="@color/login_black"
         app:rcb_cornerRadius="50dp" />
 

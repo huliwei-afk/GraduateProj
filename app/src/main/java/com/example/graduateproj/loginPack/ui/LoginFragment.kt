@@ -1,17 +1,21 @@
 package com.example.graduateproj.loginPack.ui
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
 import java.util.concurrent.TimeUnit
+
 
 /**
  * A simple [Fragment] subclass.
@@ -24,6 +28,8 @@ class LoginFragment : Fragment() {
     private lateinit var environmentPolicy: TextView
     private lateinit var noAccount: TextView
     private lateinit var forgetPassword: TextView
+    private lateinit var enterButton: Button
+    private lateinit var policyLayout: RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +48,8 @@ class LoginFragment : Fragment() {
         environmentPolicy = view.findViewById(R.id.environment_policy)
         noAccount = view.findViewById(R.id.do_not_have_account)
         forgetPassword = view.findViewById(R.id.forget_password)
+        enterButton = view.findViewById(R.id.enter_button)
+        policyLayout = view.findViewById(R.id.policy_layout)
     }
 
     private fun initEvents() {
@@ -68,7 +76,28 @@ class LoginFragment : Fragment() {
             .subscribe {
                 AppNavigator.openNoAccountFragment(noAccount)
             }
+
+        RxClickUtil.clickEvent(enterButton)
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                if(!policyCheckbox.isChecked) {
+                    shakePolicy()
+                    return@subscribe
+                }
+            }
     }
+
+
+    private fun shakePolicy() {
+        val animator: ObjectAnimator = ObjectAnimator.ofFloat(policyLayout, "translationX", 0F, 20F, -20F, 0F)
+        animator.apply {
+            duration = 100
+            repeatCount = 2
+            repeatMode = ValueAnimator.RESTART
+            setAutoCancel(true)
+        }.start()
+    }
+
 
     companion object {
         // TODO: Rename parameter arguments, choose names that match
