@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".loginPack.ui.ForgetFragment">
+
+    <ImageView
+        android:id="@+id/login_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_back_arrow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/forget_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forget"
+        android:textColor="@color/login_black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/login_back"
+        app:layout_constraintLeft_toRightOf="@+id/login_back"
+        app:layout_constraintTop_toTopOf="@+id/login_back" />
+
+    <TextView
+        android:id="@+id/find_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/find_back"
+        android:textColor="@color/login_black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/forget_text"
+        app:layout_constraintTop_toBottomOf="@id/forget_text" />
+
+    <RelativeLayout
+        android:id="@+id/login_account"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_round_corner_bg"
+        app:layout_constraintLeft_toLeftOf="@+id/find_back"
+        app:layout_constraintTop_toBottomOf="@id/find_back">
+
+        <TextView
+            android:id="@+id/location_number"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="18dp"
+            android:gravity="center"
+            android:text="@string/location_number"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/account_number"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/account_line"
+            android:background="@null"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            tools:hint="@string/phone_number" />
+
+        <View
+            android:id="@+id/account_line"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/location_number"
+            android:background="@color/login_grey" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_verify"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_round_corner_bg"
+        app:layout_constraintLeft_toLeftOf="@id/find_back"
+        app:layout_constraintTop_toBottomOf="@id/login_account">
+
+        <EditText
+            android:id="@+id/verify_number"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@+id/verify_line"
+            android:background="@null"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            tools:hint="@string/verify_code" />
+
+        <TextView
+            android:id="@+id/get_verify_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="@string/get_verify_code"
+            android:textColor="@color/login_black" />
+
+        <View
+            android:id="@+id/verify_line"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@+id/get_verify_code"
+            android:background="@color/login_grey" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

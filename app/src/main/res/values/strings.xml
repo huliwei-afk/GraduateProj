@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">邮易</string>
+
+    <!-- loginF -->
+    <string name="login_title">邮易，简单快捷的校园交易</string>
+    <string name="phone_number">手机号码</string>
+    <string name="password_number">输入密码</string>
+    <string name="already_read_and_agree">已阅读并同意</string>
+    <string name="environment_policy">《环保协议》</string>
+    <string name="line_info">举报监督电话 ｜ 服务许可 ｜ 营业执照</string>
+    <string name="forget_password">忘记密码？</string>
+    <string name="location_number">+86</string>
+    <string name="get_verify_code">获取验证码</string>
+    <string name="enter_YouYi">进入邮易</string>
+    <string name="do_not_want_account">不想注册账号么？试试游客模式</string>
+
+    <!-- forgetF -->
+    <string name="forget">忘记密码</string>
+    <string name="find_back">获取验证码以找回</string>
+    <string name="verify_code">输入验证码</string>
+    <string name="not_received">没有收到？</string>
+    <string name="your_verify_code_is">您的验证码是</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- splashAc -->
+    <string name="NAME">邮  易</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+</resources>

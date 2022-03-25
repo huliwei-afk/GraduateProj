@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".loginPack.ui.LoginFragment">
+
+    <LinearLayout
+        android:id="@+id/login_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintHeight_percent="0.20"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="35dp"
+            android:background="@color/purple_200" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/login_title"
+            android:textColor="@color/login_black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_account"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/login_round_corner_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_title">
+
+        <TextView
+            android:id="@+id/location_number"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="18dp"
+            android:gravity="center"
+            android:text="@string/location_number"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/account_number"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/account_line"
+            android:background="@null"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            tools:hint="@string/phone_number" />
+
+        <View
+            android:id="@+id/account_line"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/location_number"
+            android:background="@color/login_grey" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_password"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_round_corner_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_account">
+
+        <EditText
+            android:id="@+id/password_number"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@+id/password_line"
+            android:background="@null"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            tools:hint="@string/password_number" />
+
+        <TextView
+            android:id="@+id/forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="@string/forget_password"
+            android:textColor="@color/login_black" />
+
+        <View
+            android:id="@+id/password_line"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@+id/forget_password"
+            android:background="@color/login_grey" />
+
+    </RelativeLayout>
+
+
+    <CheckBox
+        android:id="@+id/login_checkBox"
+        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:theme="@style/login_checkBox"
+        app:layout_constraintLeft_toLeftOf="@+id/login_password"
+        app:layout_constraintTop_toBottomOf="@+id/login_password" />
+
+    <TextView
+        android:id="@+id/already_read_and_agree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/already_read_and_agree"
+        app:layout_constraintBottom_toBottomOf="@+id/login_checkBox"
+        app:layout_constraintLeft_toRightOf="@+id/login_checkBox"
+        app:layout_constraintTop_toTopOf="@+id/login_checkBox" />
+
+    <TextView
+        android:id="@+id/environment_policy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/environment_policy"
+        android:textColor="@color/login_blue"
+        app:layout_constraintLeft_toRightOf="@+id/already_read_and_agree"
+        app:layout_constraintTop_toTopOf="@id/already_read_and_agree" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/line_info"
+        android:textColor="@color/login_grey"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </TextView>
+
+    <com.example.graduateproj.commonUI.RoundCornerButton
+        android:id="@+id/enter_button"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/enter_YouYi"
+        android:textColor="@color/login_white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_checkBox"
+        app:rcb_backgroundColorNormal="@color/login_black"
+        app:rcb_cornerRadius="50dp" />
+
+    <TextView
+        android:id="@+id/do_not_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/do_not_want_account"
+        android:textColor="@color/login_blue"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
