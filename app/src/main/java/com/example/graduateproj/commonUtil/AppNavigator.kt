@@ -1,13 +1,12 @@
 package com.example.graduateproj.commonUtil
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.graduateproj.R
-import com.example.graduateproj.loginPack.ui.ForgetFragment
 import com.example.graduateproj.loginPack.ui.MainLoginActivity
+import com.example.graduateproj.mainPack.ui.MainContentActivity
 
 object AppNavigator {
 
@@ -24,4 +23,8 @@ object AppNavigator {
         Navigation.findNavController(v).navigate(R.id.action_forgetFragment_to_loginFragment)
     }
 
+    fun openMainContentActivity(context: Context) {
+        val intent = Intent(context, MainContentActivity::class.java)
+        context.startActivity(intent)
+    }
 }

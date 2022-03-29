@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
             override fun onPreDraw(): Boolean {
                 if (isReady) {
                     contentView.viewTreeObserver.removeOnPreDrawListener(this)
-                    AppNavigator.openMainLoginActivity(this@SplashActivity)
+                    AppNavigator.openMainContentActivity(this@SplashActivity)
                     finish()
                 }
                 return isReady

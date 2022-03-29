@@ -26,5 +26,12 @@
     <!-- splashAc -->
     <string name="NAME">邮  易</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_main_content">MainContentActivity</string>
+
+    <!-- bottomNav -->
+    <string name="title_home">Home</string>
+    <string name="title_donate">Donate</string>
+    <string name="title_message">Message</string>
+    <string name="title_me">Me</string>
 
 </resources>

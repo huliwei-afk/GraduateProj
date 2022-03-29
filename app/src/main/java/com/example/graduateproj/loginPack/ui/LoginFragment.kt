@@ -74,7 +74,7 @@ class LoginFragment : Fragment() {
         RxClickUtil.clickEvent(forgetPassword)
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                AppNavigator.openNoAccountFragment(noAccount)
+                AppNavigator.openNoAccountFragment(forgetPassword)
             }
 
         RxClickUtil.clickEvent(enterButton)
@@ -84,6 +84,7 @@ class LoginFragment : Fragment() {
                     shakePolicy()
                     return@subscribe
                 }
+                context?.let { it -> AppNavigator.openMainContentActivity(it) }
             }
     }
 

@@ -16,4 +16,9 @@
     <color name="login_white">#FFFFFFFF</color>
 
     <color name="splash_green">#64FAC8</color>
+
+    <!-- main color -->
+    <color name="main_18CAE4">#CD18CAE4</color>
+    <color name="main_FC438C">#FFFC438C</color>
+
 </resources>

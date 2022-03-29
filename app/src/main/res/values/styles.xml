@@ -26,4 +26,13 @@
         <item name="android:windowExitAnimation">@anim/verify_code_dialog_out</item>
     </style>
 
+    <style name="CustomRadioBtn">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/main_bottom_nav_text_selector</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
 </resources>
