@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/me_nav_graph"
+    app:startDestination="@id/meFragment">
+
+    <fragment
+        android:id="@+id/meFragment"
+        android:name="com.example.graduateproj.mainPack.mePack.MeFragment"
+        android:label="MeFragment"
+        tools:layout="@layout/fragment_me">
+        <action
+            android:id="@+id/action_meFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.graduateproj.mainPack.mePack.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+    </fragment>
+</navigation>

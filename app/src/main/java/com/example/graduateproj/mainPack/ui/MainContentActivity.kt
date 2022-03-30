@@ -1,32 +1,20 @@
 package com.example.graduateproj.mainPack.ui
 
-import android.animation.AnimatorSet
-import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.graduateproj.R
-import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.ActivityMainContentBinding
 import com.example.graduateproj.loginPack.util.MainFragmentStateAdapter
 import com.example.graduateproj.mainPack.donatePack.DonateFragment
 import com.example.graduateproj.mainPack.homePack.HomeFragment
 import com.example.graduateproj.mainPack.mePack.MeFragment
-import com.example.graduateproj.mainPack.messagePack.MessageFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.concurrent.TimeUnit
 
 class MainContentActivity : AppCompatActivity() {
 
@@ -36,7 +24,6 @@ class MainContentActivity : AppCompatActivity() {
     private lateinit var mainViewPager: ViewPager2
     private lateinit var radioButtonForHome: RadioButton
     private lateinit var radioButtonForDonate: RadioButton
-    private lateinit var radioButtonForMessage: RadioButton
     private lateinit var radioButtonForMe: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +43,6 @@ class MainContentActivity : AppCompatActivity() {
 
         radioButtonForHome = findViewById(R.id.radio_button_home)
         radioButtonForDonate = findViewById(R.id.radio_button_donate)
-        radioButtonForMessage = findViewById(R.id.radio_button_message)
         radioButtonForMe = findViewById(R.id.radio_button_me)
 
         val gradientDrawable = GradientDrawable()
@@ -82,11 +68,6 @@ class MainContentActivity : AppCompatActivity() {
                     showClickAnim(radioButtonForDonate)
                 }
 
-                R.id.radio_button_message -> {
-                    mainViewPager.setCurrentItem(2, false)
-                    showClickAnim(radioButtonForMessage)
-                }
-
                 R.id.radio_button_me -> {
                     mainViewPager.setCurrentItem(3, false)
                     showClickAnim(radioButtonForMe)
@@ -96,7 +77,7 @@ class MainContentActivity : AppCompatActivity() {
     }
 
     private fun initViewPagerAndFragment() {
-        val allFragments: List<Fragment> = listOf(HomeFragment(), DonateFragment(), MessageFragment(), MeFragment())
+        val allFragments: List<Fragment> = listOf(HomeFragment(), DonateFragment(), MeFragment())
         mainViewPager.apply {
             adapter = MainFragmentStateAdapter(this@MainContentActivity, allFragments)
             mainViewPager.offscreenPageLimit = 1
@@ -106,8 +87,7 @@ class MainContentActivity : AppCompatActivity() {
                     when (position) {
                         0 -> radioGroup.check(R.id.radio_button_home)
                         1 -> radioGroup.check(R.id.radio_button_donate)
-                        2 -> radioGroup.check(R.id.radio_button_message)
-                        3 -> radioGroup.check(R.id.radio_button_me)
+                        2-> radioGroup.check(R.id.radio_button_me)
                     }
                 }
             })

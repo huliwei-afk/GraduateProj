@@ -72,5 +72,9 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
+    // circleImage
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 }

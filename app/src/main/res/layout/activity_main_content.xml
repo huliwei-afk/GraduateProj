@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fadingEdge="vertical"
+    android:fadingEdgeLength="30dp"
+    android:requiresFadingEdge="vertical"
     tools:context=".mainPack.ui.MainContentActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -35,12 +38,6 @@
             style="@style/CustomRadioBtn"
             android:drawableTop="@drawable/main_donate_selector"
             android:text="@string/title_donate" />
-
-        <RadioButton
-            android:id="@+id/radio_button_message"
-            style="@style/CustomRadioBtn"
-            android:drawableTop="@drawable/main_message_selector"
-            android:text="@string/title_message" />
 
         <RadioButton
             android:id="@+id/radio_button_me"

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainPack.mePack.DetailFragment">
+
+    <ImageView
+        android:id="@+id/edit_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_back_arrow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/edit_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_detail"
+        android:textColor="@color/login_black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_back"
+        app:layout_constraintLeft_toRightOf="@+id/edit_back"
+        app:layout_constraintTop_toTopOf="@+id/edit_back" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/me_edit_detail_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_detail">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/me_edit_detail_head"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/me_edit_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/edit_detail_name"
+            android:textColor="@color/login_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_head" />
+
+        <EditText
+            android:id="@+id/me_edit_detail_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/edit_detail_name_input_hint"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_name" />
+
+        <TextView
+            android:id="@+id/me_edit_detail_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/edit_detail_sign"
+            android:textColor="@color/login_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_name_input" />
+
+        <EditText
+            android:id="@+id/me_edit_detail_sign_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/edit_detail_sign_input_hint"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_sign" />
+
+        <TextView
+            android:id="@+id/me_edit_detail_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/edit_detail_qq_number"
+            android:textColor="@color/login_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_sign_input" />
+
+        <EditText
+            android:id="@+id/me_edit_detail_qq_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/edit_detail_qq_input_hint"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_qq" />
+
+        <TextView
+            android:id="@+id/me_edit_detail_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/edit_detail_phone_number"
+            android:textColor="@color/login_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_qq_input" />
+
+        <EditText
+            android:id="@+id/me_edit_detail_phone_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/edit_detail_phone_input_hint"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_phone" />
+
+        <TextView
+            android:id="@+id/me_edit_detail_institute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/edit_detail_institute"
+            android:textColor="@color/login_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_phone_input" />
+
+        <EditText
+            android:id="@+id/me_edit_detail_institute_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/edit_detail_institute_input_hint"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_institute" />
+
+        <com.example.graduateproj.commonUI.RoundCornerButton
+            android:id="@+id/save_button"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/edit_detail_save_button_text"
+            android:textColor="@color/login_white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/me_edit_detail_institute_input"
+            app:rcb_backgroundColorNormal="@color/login_black"
+            app:rcb_cornerRadius="50dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

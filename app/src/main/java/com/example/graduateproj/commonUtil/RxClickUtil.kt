@@ -17,9 +17,9 @@ object RxClickUtil {
         if (view == null) throw NullPointerException("Null View can not be clicked!")
     }
 
-    private class ViewClickOnSubscribe(private val view: View) : ObservableOnSubscribe<Int?> {
+    private class ViewClickOnSubscribe(private val view: View) : ObservableOnSubscribe<Int> {
         @Throws(Throwable::class)
-        override fun subscribe(emitter: ObservableEmitter<Int?>) {
+        override fun subscribe(emitter: ObservableEmitter<Int>) {
             view.setOnClickListener {
                 if (!emitter.isDisposed) {
                     emitter.onNext(1)

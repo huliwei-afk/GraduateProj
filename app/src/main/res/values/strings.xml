@@ -34,4 +34,42 @@
     <string name="title_message">Message</string>
     <string name="title_me">Me</string>
 
+    <!-- HomeFg -->
+    <string name="discover">发现</string>
+    <string name="discover_description">最近有哪些好东西呢</string>
+
+    <!-- DonateFg -->
+    <string name="donate">圈子</string>
+    <string name="donate_description">快来看看毕业圈里的精选好物吧</string>
+
+
+    <!-- DetailFg -->
+    <string name="edit_detail">资料编辑</string>
+    <string name="edit_detail_name">昵称</string>
+    <string name="edit_detail_name_input_hint">请输入昵称</string>
+    <string name="edit_detail_sign">个性签名</string>
+    <string name="edit_detail_sign_input_hint">请输入个性签名</string>
+    <string name="edit_detail_qq_number">QQ</string>
+    <string name="edit_detail_qq_input_hint">完善你的个人信息噢</string>
+    <string name="edit_detail_phone_number">电话</string>
+    <string name="edit_detail_phone_input_hint">完善你的个人信息噢</string>
+    <string name="edit_detail_institute">学院</string>
+    <string name="edit_detail_institute_input_hint">请输入学院名称</string>
+    <string name="edit_detail_save_button_text">保存</string>
+
+    <!-- meFg -->
+    <string name="me_fragment_name">student</string>
+    <string name="me_fragment_life_state">说说最近的生活状态吧</string>
+    <string name="me_fragment_today_dynamic">今日动态</string>
+    <string name="me_fragment_calendar_day">Tue</string>
+    <string name="me_fragment_calendar_month">03.29</string>
+    <string name="me_fragment_prefer_settings">偏好设置</string>
+    <string name="me_fragment_suggest">鼓励建议</string>
+    <string name="me_fragment_version">版本信息</string>
+    <string name="me_fragment_other">其他</string>
+    <string name="me_fragment_default_zero">0</string>
+    <string name="me_fragment_all_dynamic">动态</string>
+    <string name="me_fragment_all_comments">评论</string>
+    <string name="me_fragment_all_get_star">获赞</string>
+    <string name="me_fragment_record_ontime">快去发动态获取新的评论和点赞吧！</string>
 </resources>

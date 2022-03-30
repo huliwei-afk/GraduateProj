@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
@@ -31,10 +32,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUI.themeColorGreen
 import com.example.graduateproj.commonUI.themeColorPink
+import com.example.graduateproj.commonUtil.AppNavigator
+import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.FragmentMeBinding
+import java.util.concurrent.TimeUnit
 
 class MeFragment : Fragment() {
 
@@ -43,40 +52,53 @@ class MeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var editLinear: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val meViewModel =
-//            ViewModelProvider(this).get(MeViewModel::class.java)
+        val meViewModel =
+            ViewModelProvider(this).get(MeViewModel::class.java)
+
+        _binding = FragmentMeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        initViews(root)
+        initEvents()
+
+        return root
+
+//        return ComposeView(requireContext()).apply {
+//            // Dispose the Composition when viewLifecycleOwner is destroyed
+//            setViewCompositionStrategy(
+//                ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)
+//            )
 //
-//        _binding = FragmentMeBinding.inflate(inflater, container, false)
-//        val root: View = binding.root
-//
-//        val textView: TextView = binding.textMe
-//        meViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
+//            setContent {
+//                MaterialTheme {
+//                    Column {
+//                        TopTitle()
+//                        RecordToday()
+//                        OtherSettings()
+//                    }
+//                }
+//            }
 //        }
-//        return root
+    }
 
-        return ComposeView(requireContext()).apply {
-            // Dispose the Composition when viewLifecycleOwner is destroyed
-            setViewCompositionStrategy(
-                ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)
-            )
 
-            setContent {
-                MaterialTheme {
-                    Column {
-                        TopTitle()
-                        RecordToday()
-                        OtherSettings()
-                    }
-                }
+    private fun initViews(root: View) {
+        editLinear = root.findViewById(R.id.me_fragment_info_edit_layout)
+    }
+
+    private fun initEvents() {
+        RxClickUtil.clickEvent(editLinear)
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                AppNavigator.openEditDetailFragment(this)
             }
-        }
     }
 
     override fun onDestroyView() {
@@ -84,6 +106,9 @@ class MeFragment : Fragment() {
         _binding = null
     }
 }
+
+
+
 
 
 @Composable
@@ -106,7 +131,7 @@ fun TopTitle() {
         Column(
             modifier = Modifier
                 .padding(start = 14.dp)
-                .weight(weight = 1f),
+                .weight(weight = 1F)
 
             ) {
             Text(
@@ -130,7 +155,6 @@ fun TopTitle() {
     }
 }
 
-@Preview
 @Composable
 fun RecordToday() {
     Card(
@@ -190,7 +214,7 @@ fun DynamicItem(dynamic: Int, title: String) {
 }
 
 
-/*a
+/*
  设置选项
  */
 @Composable
