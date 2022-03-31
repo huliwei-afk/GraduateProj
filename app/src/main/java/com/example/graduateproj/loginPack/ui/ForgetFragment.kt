@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
-import com.example.graduateproj.loginPack.util.VerifyCodeDialogManager
+import com.example.graduateproj.loginPack.util.DialogManager
 import java.util.concurrent.TimeUnit
 
 /**
@@ -44,20 +44,21 @@ class ForgetFragment : Fragment() {
     }
 
     private fun initEvents() {
-        RxClickUtil.clickEvent(arrowBack)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                AppNavigator.openLoginFragment(arrowBack)
-            }
-
-        RxClickUtil.clickEvent(getVerifyCode)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                context?.let { it ->
-                    VerifyCodeDialogManager.showDialog(it)
+        activity?.let {
+            RxClickUtil.clickEvent(arrowBack, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openLoginFragment(arrowBack)
                 }
-            }
 
+            RxClickUtil.clickEvent(getVerifyCode, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    context?.let { it ->
+                        DialogManager.showVerifyCodeDialog(it)
+                    }
+                }
+        }
     }
 
     companion object {

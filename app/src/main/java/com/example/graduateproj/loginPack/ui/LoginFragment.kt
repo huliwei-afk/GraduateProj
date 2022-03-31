@@ -53,39 +53,41 @@ class LoginFragment : Fragment() {
     }
 
     private fun initEvents() {
-        RxClickUtil.clickEvent(policyCheckbox)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
+        activity?.let {
+            RxClickUtil.clickEvent(policyCheckbox, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
 
-            }
-
-        RxClickUtil.clickEvent(environmentPolicy)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-
-            }
-
-        RxClickUtil.clickEvent(noAccount)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-
-            }
-
-        RxClickUtil.clickEvent(forgetPassword)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                AppNavigator.openNoAccountFragment(forgetPassword)
-            }
-
-        RxClickUtil.clickEvent(enterButton)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                if(!policyCheckbox.isChecked) {
-                    shakePolicy()
-                    return@subscribe
                 }
-                context?.let { it -> AppNavigator.openMainContentActivity(it) }
-            }
+
+            RxClickUtil.clickEvent(environmentPolicy, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+
+                }
+
+            RxClickUtil.clickEvent(noAccount, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+
+                }
+
+            RxClickUtil.clickEvent(forgetPassword, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openNoAccountFragment(forgetPassword)
+                }
+
+            RxClickUtil.clickEvent(enterButton, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    if(!policyCheckbox.isChecked) {
+                        shakePolicy()
+                        return@subscribe
+                    }
+                    AppNavigator.openMainContentActivity(requireContext())
+                }
+        }
     }
 
 

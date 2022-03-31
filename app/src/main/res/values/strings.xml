@@ -72,4 +72,12 @@
     <string name="me_fragment_all_comments">评论</string>
     <string name="me_fragment_all_get_star">获赞</string>
     <string name="me_fragment_record_ontime">快去发动态获取新的评论和点赞吧！</string>
+    <string name="me_fragment_dialog_known">知道啦</string>
+
+
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="me_fragment_dialog_hint">提示</string>
+    <string name="prefer_title">偏好设置</string>
+    <string name="prefer_touch_vibrate">触感震动</string>
+    <!-- Strings used for fragments for navigation -->
 </resources>

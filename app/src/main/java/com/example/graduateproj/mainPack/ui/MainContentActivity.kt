@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -25,6 +26,8 @@ class MainContentActivity : AppCompatActivity() {
     private lateinit var radioButtonForHome: RadioButton
     private lateinit var radioButtonForDonate: RadioButton
     private lateinit var radioButtonForMe: RadioButton
+
+    private var pressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +72,7 @@ class MainContentActivity : AppCompatActivity() {
                 }
 
                 R.id.radio_button_me -> {
-                    mainViewPager.setCurrentItem(3, false)
+                    mainViewPager.setCurrentItem(2, false)
                     showClickAnim(radioButtonForMe)
                 }
             }
@@ -104,5 +107,18 @@ class MainContentActivity : AppCompatActivity() {
                 radioButton.scaleY = scale
             }
         }.start()
+    }
+
+    override fun onBackPressed() {
+        // 记录本次按键时刻
+        val nowTime = System.currentTimeMillis()
+        if (nowTime - pressedTime > 2000) {
+            // 比较两次按键时间差
+            Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_LONG).show()
+            pressedTime = nowTime
+        } else {
+            // 退出程序
+            super.onBackPressed()
+        }
     }
 }

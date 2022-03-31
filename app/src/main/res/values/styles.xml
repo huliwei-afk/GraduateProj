@@ -35,4 +35,10 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
+    <!-- notification 动画-->
+    <style name="notificationAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/notification_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/notification_dialog_out</item>
+    </style>
+
 </resources>

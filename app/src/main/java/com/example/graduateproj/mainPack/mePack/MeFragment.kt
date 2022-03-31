@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
@@ -43,6 +45,7 @@ import com.example.graduateproj.commonUI.themeColorPink
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.FragmentMeBinding
+import com.example.graduateproj.loginPack.util.DialogManager
 import java.util.concurrent.TimeUnit
 
 class MeFragment : Fragment() {
@@ -53,6 +56,11 @@ class MeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var editLinear: LinearLayout
+    private lateinit var notificationIcon: ImageView
+    private lateinit var relativeLayoutPrefer: RelativeLayout
+    private lateinit var relativeLayoutSuggest: RelativeLayout
+    private lateinit var relativeLayoutVersion: RelativeLayout
+    private lateinit var relativeLayoutOther: RelativeLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,14 +99,31 @@ class MeFragment : Fragment() {
 
     private fun initViews(root: View) {
         editLinear = root.findViewById(R.id.me_fragment_info_edit_layout)
+        notificationIcon = root.findViewById(R.id.me_fragment_notification_icon)
+        relativeLayoutPrefer = root.findViewById(R.id.me_fragment_prefer_settings)
     }
 
     private fun initEvents() {
-        RxClickUtil.clickEvent(editLinear)
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                AppNavigator.openEditDetailFragment(this)
-            }
+        activity?.let {
+            RxClickUtil.clickEvent(editLinear, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openEditDetailActivity(requireContext())
+                }
+
+            RxClickUtil.clickEvent(notificationIcon, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    DialogManager.showNotificationDialog(requireContext(), false)
+                }
+
+            RxClickUtil.clickEvent(relativeLayoutPrefer, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openPreferActivity(requireContext())
+                }
+        }
+
     }
 
     override fun onDestroyView() {
