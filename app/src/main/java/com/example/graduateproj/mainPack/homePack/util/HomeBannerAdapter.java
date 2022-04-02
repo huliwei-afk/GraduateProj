@@ -7,13 +7,21 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class HomeBannerAdapter extends PagerAdapter {
+import com.example.graduateproj.interfaceUtil.OnBannerImageLoadListener;
+import com.example.graduateproj.mainPack.homePack.model.BannerImageBean;
 
-    private HomeBannerAdapter() {}
+public class HomeBannerAdapter extends PagerAdapter {
+    private final BannerImageBean bean;
+    private final OnBannerImageLoadListener onBannerImageLoadListener;
+
+    public HomeBannerAdapter(BannerImageBean bean, OnBannerImageLoadListener onBannerImageLoadListener) {
+        this.bean = bean;
+        this.onBannerImageLoadListener = onBannerImageLoadListener;
+    }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return (bean.getData().size() * 10000 * 100);
     }
 
     @Override
@@ -31,6 +39,10 @@ public class HomeBannerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(container.getContext());
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        position = position % bean.getData().size();
+        if(onBannerImageLoadListener != null) {
+            onBannerImageLoadListener.loadBannerImage(bean, position, imageView);
+        }
         container.addView(imageView);
         return imageView;
     }

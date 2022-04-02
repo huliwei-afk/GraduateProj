@@ -1,5 +1,7 @@
 package com.example.graduateproj.mainPack.mePack
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -24,21 +23,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUI.themeColorGreen
 import com.example.graduateproj.commonUI.themeColorPink
@@ -47,6 +37,7 @@ import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.FragmentMeBinding
 import com.example.graduateproj.loginPack.util.DialogManager
 import java.util.concurrent.TimeUnit
+
 
 class MeFragment : Fragment() {
 
@@ -101,6 +92,7 @@ class MeFragment : Fragment() {
         editLinear = root.findViewById(R.id.me_fragment_info_edit_layout)
         notificationIcon = root.findViewById(R.id.me_fragment_notification_icon)
         relativeLayoutPrefer = root.findViewById(R.id.me_fragment_prefer_settings)
+        relativeLayoutSuggest = root.findViewById(R.id.me_fragment_suggest)
     }
 
     private fun initEvents() {
@@ -121,6 +113,12 @@ class MeFragment : Fragment() {
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
                     AppNavigator.openPreferActivity(requireContext())
+                }
+
+            RxClickUtil.clickEvent(relativeLayoutSuggest, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openAppMarket(requireContext())
                 }
         }
 

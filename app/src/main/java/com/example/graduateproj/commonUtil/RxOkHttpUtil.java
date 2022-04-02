@@ -1,9 +1,14 @@
 package com.example.graduateproj.commonUtil;
 
-import android.os.Handler;
 import android.util.Log;
 
+import com.example.graduateproj.interfaceUtil.HttpRequest;
+import com.example.graduateproj.interfaceUtil.OnDataObtainListener;
+import com.example.graduateproj.mainPack.homePack.model.BannerImageBean;
+import com.google.gson.Gson;
+
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -13,7 +18,6 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -21,16 +25,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RxOkHttpUtil {
 
     private final String TAG = RxOkHttpUtil.class.getSimpleName();
-
-    interface OnDataObtainListener {
-        void onSuccess(Response response);
-
-        void onFailure(Throwable e);
-    }
 
     private static final RxOkHttpUtil INSTANCE = new RxOkHttpUtil();
 
@@ -57,46 +58,34 @@ public class RxOkHttpUtil {
                 .build();
     }
 
-    // 创建Request请求
-    private Request createRequest(final String path) {
-        return new Request.Builder()
-                .url(path)
-                .get()
+    // 创建Retrofit实例
+    private Retrofit createRetrofit(final String path) {
+        return new Retrofit.Builder()
+                .baseUrl(path)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous())
+                .client(createOkHttp())
                 .build();
     }
 
-    // 做get请求
-    private Single<?> doGetRequestToObservable(final String path) {
-        return Single.create(emitter -> {
-            Call call = createOkHttp().newCall(createRequest(path));
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    emitter.onError(e);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    emitter.onSuccess(response);
-                }
-            });
-        });
+    // 创建HttpRequest请求
+    private HttpRequest createRequest(final String path) {
+        return createRetrofit(path).create(HttpRequest.class);
     }
 
-    public void asyncHttpRequest(final String path, final OnDataObtainListener onDataObtainListener) {
-        Single<?> observable = doGetRequestToObservable(path);
-        observable.subscribeOn(Schedulers.io())
+    public void syncHttpRequest(final String path, final OnDataObtainListener onDataObtainListener) {
+        createRequest(path)
+                .call()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Object>() {
+                .subscribe(new SingleObserver<BannerImageBean>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
+                    public void onSubscribe(@NonNull Disposable d) { }
 
                     @Override
-                    public void onSuccess(@NonNull Object o) {
+                    public void onSuccess(@NonNull BannerImageBean bean) {
                         if (onDataObtainListener != null) {
-                            onDataObtainListener.onSuccess((Response) o);
+                            onDataObtainListener.onSuccess(bean);
                         }
                     }
 

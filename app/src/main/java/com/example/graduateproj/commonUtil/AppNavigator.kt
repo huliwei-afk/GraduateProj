@@ -2,6 +2,7 @@ package com.example.graduateproj.commonUtil
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.graduateproj.R
@@ -37,6 +38,13 @@ object AppNavigator {
 
     fun openPreferActivity(context: Context) {
         val intent = Intent(context, PreferActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun openAppMarket(context: Context) {
+        val uri: Uri = Uri.parse("market://details?id=" + context.packageName)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
 }
