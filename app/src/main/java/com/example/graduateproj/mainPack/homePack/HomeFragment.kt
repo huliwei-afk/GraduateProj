@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
                         .into(imageView as ImageView)
 
                 }) {}
-            // TODO：这行代码会导致崩溃
+            // TODO：这行代码位置不对会导致崩溃
             currentItem = (homeBanner.adapter?.count)?.div(2) ?: 0
         }
     }

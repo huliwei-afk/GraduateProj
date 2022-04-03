@@ -79,5 +79,66 @@
     <string name="me_fragment_dialog_hint">提示</string>
     <string name="prefer_title">偏好设置</string>
     <string name="prefer_touch_vibrate">触感震动</string>
+    <string name="donate_fragment_more">更多</string>
+    <string name="me_fragment_ver_info">v1.0.0</string>
+
+    <!-- OtherAc -->
+    <string name="title_activity_other">OtherActivity</string>
+    <string name="other_activity_title">其他信息</string>
+    <string name="other_activity_sdk">接入SDK目录</string>
+
+    <string name="other_activity_rxjava">RxJava</string>
+    <string name="other_activity_rxjava_ver">version 3.0.0</string>
+    <string name="other_activity_rxjava_des">函数响应式框架，主要用于网络请求等功能的快速封装</string>
+
+    <string name="other_activity_kotlin">Kotlin</string>
+    <string name="other_activity_kotlin_ver">version 1.6.0</string>
+    <string name="other_activity_kotlin_desc">新式Android编程语言，有多样的语法糖和新特性快速搭建App</string>
+
+    <string name="other_activity_navigation">Navigation</string>
+    <string name="other_activity_navigation_ver">version 2.0.0</string>
+    <string name="other_activity_navigation_desc">Jetpack工具包下导航类，用于App内各界面跳转导航</string>
+
+    <string name="other_activity_compose">Compose</string>
+    <string name="other_activity_compose_ver">version 1.0.1</string>
+    <string name="other_activity_compose_desc">Jetpack工具包下声明式UI，提供多样的MD风格控件</string>
+
+    <string name="other_activity_circle">CircleImage</string>
+    <string name="other_activity_circle_ver">version 3.0.1</string>
+    <string name="other_activity_circle_desc">Github开源库，提供便捷的图片Mask样式</string>
+
+    <string name="other_activity_okhttp">OkHttp</string>
+    <string name="other_activity_okhttp_ver">version 3.4.1</string>
+    <string name="other_activity_okhttp_desc">Squareup开源库，提供简便的网络请求框架</string>
+
+    <string name="other_activity_glide">Glide</string>
+    <string name="other_activity_glide_ver">version 4.1.0</string>
+    <string name="other_activity_glide_desc">Github开源库，提供便捷的图片加载API</string>
+
+    <string name="other_activity_retrofit">Retrofit</string>
+    <string name="other_activity_retrofit_ver">version 2.5.0</string>
+    <string name="other_activity_retrofit_desc">Squareup开源库，抽象OkHttp请求API，开发更便捷</string>
+
+    <string name="other_activity_permission">申请权限目录</string>
+
+    <string name="other_activity_vibrate">VIBRATE</string>
+    <string name="other_activity_vibrate_desc">震动权限，开启后可感受到点击时的震动效果</string>
+
+    <string name="other_activity_internet">INTERNET</string>
+    <string name="other_activity_internet_desc">网络使用权限，开启后可在App内使用网络</string>
+
+    <string name="other_activity_network">NETWORK</string>
+    <string name="other_activity_network_desc">网络状态权限，开启后可感知网络状态变化</string>
+
+    <string name="other_activity_wifi">WIFI</string>
+    <string name="other_activity_wifi_desc">Wifi权限，开启后可感知Wifi状态</string>
+
+    <string name="other_activity_read">READ</string>
+    <string name="other_activity_read_desc">读取SD卡权限，开启后可读取本地文件</string>
+
+    <string name="other_activity_write">WRITE</string>
+    <string name="other_activity_write_desc">写入SD卡权限，开启后可修改本地文件</string>
+
+
     <!-- Strings used for fragments for navigation -->
 </resources>

@@ -1,5 +1,6 @@
 package com.example.graduateproj.commonUtil
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -7,9 +8,10 @@ import android.view.View
 import androidx.navigation.Navigation
 import com.example.graduateproj.R
 import com.example.graduateproj.loginPack.ui.MainLoginActivity
-import com.example.graduateproj.mainPack.ui.DetailActivity
+import com.example.graduateproj.mainPack.mePack.ui.DetailActivity
+import com.example.graduateproj.mainPack.mePack.ui.OtherActivity
 import com.example.graduateproj.mainPack.ui.MainContentActivity
-import com.example.graduateproj.mainPack.ui.PreferActivity
+import com.example.graduateproj.mainPack.mePack.ui.PreferActivity
 
 object AppNavigator {
 
@@ -46,5 +48,14 @@ object AppNavigator {
         val intent = Intent(Intent.ACTION_VIEW, uri)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    fun openOtherActivity(context: Context) {
+        val intent = Intent(context, OtherActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun backToMainContentActivity(context: Activity) {
+        context.finish()
     }
 }

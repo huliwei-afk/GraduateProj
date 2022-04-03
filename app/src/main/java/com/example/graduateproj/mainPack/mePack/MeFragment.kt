@@ -1,14 +1,15 @@
 package com.example.graduateproj.mainPack.mePack
 
-import android.content.Intent
-import android.net.Uri
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -30,12 +31,13 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.graduateproj.R
-import com.example.graduateproj.commonUI.themeColorGreen
-import com.example.graduateproj.commonUI.themeColorPink
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.FragmentMeBinding
 import com.example.graduateproj.loginPack.util.DialogManager
+import com.example.graduateproj.mainPack.mePack.presenter.MePresenter
+import com.example.graduateproj.mainPack.mePack.util.DetailStateUtil
+import de.hdodenhof.circleimageview.CircleImageView
 import java.util.concurrent.TimeUnit
 
 
@@ -52,6 +54,107 @@ class MeFragment : Fragment() {
     private lateinit var relativeLayoutSuggest: RelativeLayout
     private lateinit var relativeLayoutVersion: RelativeLayout
     private lateinit var relativeLayoutOther: RelativeLayout
+    private lateinit var relativeLayoutVerInfo: RelativeLayout
+    private lateinit var rotateArrow: ImageView
+    private lateinit var meName: TextView
+    private lateinit var meSign: TextView
+    internal lateinit var circleImageHead: CircleImageView
+
+    private lateinit var mePresenter: MePresenter
+
+    private fun initViews(root: View) {
+        editLinear = root.findViewById(R.id.me_fragment_info_edit_layout)
+        notificationIcon = root.findViewById(R.id.me_fragment_notification_icon)
+        relativeLayoutPrefer = root.findViewById(R.id.me_fragment_prefer_settings)
+        relativeLayoutSuggest = root.findViewById(R.id.me_fragment_suggest)
+        relativeLayoutVersion = root.findViewById(R.id.me_fragment_version)
+        relativeLayoutOther = root.findViewById(R.id.me_fragment_other)
+        relativeLayoutVerInfo = root.findViewById(R.id.relative_version_info)
+        rotateArrow = root.findViewById(R.id.rotate_arrow)
+        circleImageHead = root.findViewById(R.id.me_fragment_head)
+
+        meName = root.findViewById(R.id.me_fragment_name)
+        meSign = root.findViewById(R.id.me_fragment_sign)
+
+        mePresenter = MePresenter(this)
+    }
+
+    private fun initEvents() {
+        activity?.let {
+            RxClickUtil.clickEvent(editLinear, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openEditDetailActivity(requireContext())
+                }
+
+            RxClickUtil.clickEvent(notificationIcon, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    DialogManager.showNotificationDialog(requireContext(), false)
+                }
+
+            RxClickUtil.clickEvent(relativeLayoutPrefer, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openPreferActivity(requireContext())
+                }
+
+            RxClickUtil.clickEvent(relativeLayoutSuggest, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openAppMarket(requireContext())
+                }
+
+            RxClickUtil.clickEvent(relativeLayoutVersion, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    if (relativeLayoutVerInfo.visibility == View.GONE) {
+                        relativeLayoutVerInfo.visibility = View.VISIBLE
+                        rotateNinetyAngle()
+                    } else {
+                        relativeLayoutVerInfo.visibility = View.GONE
+                        rotateNinetyAngleBack()
+                    }
+                }
+
+            RxClickUtil.clickEvent(circleImageHead, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    mePresenter.requestPermissionAndTryOpen()
+                }
+
+            RxClickUtil.clickEvent(relativeLayoutOther, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    AppNavigator.openOtherActivity(requireContext())
+                }
+        }
+
+    }
+
+    private fun initPersonalInfo() {
+        val name = DetailStateUtil.getInstance(requireContext()).localSelfNameOrDefault
+        if(!TextUtils.equals(name, "")) {
+            meName.text = name
+        }
+
+        val sign = DetailStateUtil.getInstance(requireContext()).localSignOrDefault
+        if(!TextUtils.equals(sign, "")) {
+            meSign.text = sign
+        }
+    }
+
+    private fun rotateNinetyAngle() {
+        val rotate = ObjectAnimator.ofFloat(rotateArrow, "rotation", 0F, 90F).apply {
+            duration = 200
+        }.start()
+    }
+
+    private fun rotateNinetyAngleBack() {
+        val rotate = ObjectAnimator.ofFloat(rotateArrow, "rotation", 90F, 0F).apply {
+            duration = 200
+        }.start()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,41 +190,9 @@ class MeFragment : Fragment() {
 //        }
     }
 
-
-    private fun initViews(root: View) {
-        editLinear = root.findViewById(R.id.me_fragment_info_edit_layout)
-        notificationIcon = root.findViewById(R.id.me_fragment_notification_icon)
-        relativeLayoutPrefer = root.findViewById(R.id.me_fragment_prefer_settings)
-        relativeLayoutSuggest = root.findViewById(R.id.me_fragment_suggest)
-    }
-
-    private fun initEvents() {
-        activity?.let {
-            RxClickUtil.clickEvent(editLinear, it)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe {
-                    AppNavigator.openEditDetailActivity(requireContext())
-                }
-
-            RxClickUtil.clickEvent(notificationIcon, it)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe {
-                    DialogManager.showNotificationDialog(requireContext(), false)
-                }
-
-            RxClickUtil.clickEvent(relativeLayoutPrefer, it)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe {
-                    AppNavigator.openPreferActivity(requireContext())
-                }
-
-            RxClickUtil.clickEvent(relativeLayoutSuggest, it)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe {
-                    AppNavigator.openAppMarket(requireContext())
-                }
-        }
-
+    override fun onResume() {
+        super.onResume()
+        initPersonalInfo()
     }
 
     override fun onDestroyView() {
@@ -129,9 +200,6 @@ class MeFragment : Fragment() {
         _binding = null
     }
 }
-
-
-
 
 
 @Composable
@@ -156,7 +224,7 @@ fun TopTitle() {
                 .padding(start = 14.dp)
                 .weight(weight = 1F)
 
-            ) {
+        ) {
             Text(
                 text = "student",
                 fontSize = 19.sp,
@@ -166,7 +234,7 @@ fun TopTitle() {
             Text(text = "说说最近的生活状态吧", fontSize = 9.sp, color = Color.Gray)
         }
 
-        Surface(modifier = Modifier.clip(shape = CircleShape), color = themeColorPink) {
+        Surface(modifier = Modifier.clip(shape = CircleShape), color = Color.Black) {
             Image(
                 painter = painterResource(id = R.drawable.me_fragment_notification_icon),
                 contentDescription = "通知铃铛",
@@ -189,7 +257,7 @@ fun RecordToday() {
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(
             width = 1.dp,
-            color = themeColorGreen
+            color = Color.Black
         ),
         content = {
             Column {
@@ -229,7 +297,10 @@ fun TodayDynamic() {
 
 @Composable
 fun DynamicItem(dynamic: Int, title: String) {
-    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(text = dynamic.toString(), fontSize = 20.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.padding(5.dp))
         Text(text = title, fontSize = 14.sp)
