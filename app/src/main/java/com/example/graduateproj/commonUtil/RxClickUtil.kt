@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.VIBRATOR_SERVICE
 import android.os.Vibrator
 import android.view.View
+import com.example.graduateproj.mainPack.mePack.util.PreferStateUtil
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
@@ -16,30 +17,31 @@ object RxClickUtil {
 
     fun clickEvent(view: View, context: Context): Observable<*> {
         checkViewNotNull(view)
-        checkVibrator(context)
-        return Observable.create(ViewClickOnSubscribe(view))
+        return Observable.create(ViewClickOnSubscribe(view, context))
     }
 
-    private fun checkVibrator(context: Context) {
+    private fun checkCanVibrate(context: Context): Boolean {
         vibrator = context.getSystemService(VIBRATOR_SERVICE) as Vibrator
-        if (vibrator.hasVibrator()) {
+        if (vibrator.hasVibrator() && PreferStateUtil.getInstance(context).vibrateStateOrDefault) {
             canVibrate = true
+        } else {
+            canVibrate = false
+            vibrator.cancel()
         }
+        return canVibrate
     }
 
     private fun checkViewNotNull(view: View?) {
         if (view == null) throw NullPointerException("Null View can not be clicked!")
     }
 
-    private class ViewClickOnSubscribe(private val view: View) : ObservableOnSubscribe<Int> {
+    private class ViewClickOnSubscribe(private val view: View, private val context: Context): ObservableOnSubscribe<Int> {
         @Throws(Throwable::class)
         override fun subscribe(emitter: ObservableEmitter<Int>) {
             view.setOnClickListener {
                 if (!emitter.isDisposed) {
-                    if(canVibrate) {
+                    if (checkCanVibrate(context)) {
                         vibrator.vibrate(100)
-                    } else {
-                        vibrator.cancel()
                     }
                     emitter.onNext(1)
                 }

@@ -37,6 +37,7 @@ import com.example.graduateproj.databinding.FragmentMeBinding
 import com.example.graduateproj.loginPack.util.DialogManager
 import com.example.graduateproj.mainPack.mePack.presenter.MePresenter
 import com.example.graduateproj.mainPack.mePack.util.DetailStateUtil
+import com.example.graduateproj.mainPack.mePack.util.MeCalendarUtil
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.concurrent.TimeUnit
 
@@ -59,6 +60,8 @@ class MeFragment : Fragment() {
     private lateinit var meName: TextView
     private lateinit var meSign: TextView
     internal lateinit var circleImageHead: CircleImageView
+    private lateinit var calendarDay: TextView
+    private lateinit var calendarMonth: TextView
 
     private lateinit var mePresenter: MePresenter
 
@@ -75,6 +78,11 @@ class MeFragment : Fragment() {
 
         meName = root.findViewById(R.id.me_fragment_name)
         meSign = root.findViewById(R.id.me_fragment_sign)
+
+        calendarDay = root.findViewById(R.id.me_fragment_calendar_day)
+        calendarDay.text = MeCalendarUtil.getCalendarDay()
+        calendarMonth = root.findViewById(R.id.me_fragment_calendar_month)
+        calendarMonth.text = MeCalendarUtil.getCalendarMonth()
 
         mePresenter = MePresenter(this)
     }
