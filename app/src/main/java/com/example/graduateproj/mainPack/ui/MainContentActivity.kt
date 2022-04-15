@@ -38,6 +38,7 @@ class MainContentActivity : AppCompatActivity() {
         initViews()
         initRadioGroup()
         initViewPagerAndFragment()
+        //RoomExplorer.show(this, AppDataBase::class.java, DBManager.DB_NAME)
     }
 
     private fun initViews() {

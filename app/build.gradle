@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
-apply plugin: 'kotlin-android'
 
 android {
     compileSdk 31
@@ -43,6 +43,11 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    allprojects {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
         }
     }
 }
@@ -98,6 +103,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
-    // room
-    implementation "androidx.room:room-runtime:2.2.5"
+    // splash
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
+
+    // room 以及针对kotlin协程功能的扩展库
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+
 }

@@ -2,7 +2,7 @@ package com.example.graduateproj.mainPack.homePack.presenter
 
 import android.util.Log
 import com.example.graduateproj.commonUtil.RxOkHttpUtil
-import com.example.graduateproj.interfaceUtil.OnDataObtainListener
+import com.example.graduateproj.interfaceUtil.InterfacesHolder
 import com.example.graduateproj.mainPack.homePack.HomeFragment
 import com.example.graduateproj.mainPack.homePack.model.BannerImageBean
 import kotlin.concurrent.thread
@@ -14,20 +14,18 @@ class HomePresenter(val view: HomeFragment) {
     }
 
     fun getBannerImageDataAndSet() {
-        thread {
-            RxOkHttpUtil.getInstance()
-                .syncHttpRequest(baseUrl, object :
-                    OnDataObtainListener {
-                    override fun onSuccess(dataList: BannerImageBean?) {
-                        dataList?.let {
-                            view.initBanner(dataList)
-                        }
+        RxOkHttpUtil.getInstance()
+            .syncHttpRequestForBanner(baseUrl, object :
+                InterfacesHolder.OnBannerDataObtainListener {
+                override fun onSuccess(dataList: BannerImageBean?) {
+                    dataList?.let {
+                        view.initBanner(dataList)
                     }
+                }
 
-                    override fun onFailure(e: Throwable?) {
-                        Log.d(TAG, e.toString())
-                    }
-                })
-        }
+                override fun onFailure(e: Throwable?) {
+                    Log.d(TAG, e.toString())
+                }
+            })
     }
 }

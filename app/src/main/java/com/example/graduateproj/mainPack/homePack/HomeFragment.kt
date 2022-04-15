@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -25,6 +26,7 @@ import com.example.graduateproj.mainPack.homePack.util.DepthPageTransformer
 import com.example.graduateproj.mainPack.homePack.util.HomeBannerAdapter
 import com.example.graduateproj.mainPack.homePack.util.HomeTabFragmentAdapter
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import java.lang.Exception
 import java.lang.reflect.Field
 import java.util.*
@@ -35,7 +37,7 @@ class HomeFragment : Fragment() {
     private val TAG = HomeFragment::class.java.simpleName
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeTabLayout: TabLayout
-    private lateinit var homeTabFragmentViewPager: ViewPager
+    private lateinit var homeTabFragmentViewPager: ViewPager2
     private lateinit var homeBanner: ViewPager
     private var titles = arrayListOf<String>()
     private var tabFragments = arrayListOf<Fragment>()
@@ -87,10 +89,25 @@ class HomeFragment : Fragment() {
             add(CommodityFragment())
             add(OtherFragment())
         }
+        homeTabFragmentViewPager.apply {
+            adapter = HomeTabFragmentAdapter(this@HomeFragment, tabFragments)
+            offscreenPageLimit = 1
+            isUserInputEnabled = false
+        }
+        TabLayoutMediator(homeTabLayout, homeTabFragmentViewPager) { tab, position -> tab.text = titles[position] }.attach()
+        homeTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                //之后再写吧。。。
+            }
 
-        val homeTabFragmentAdapter = HomeTabFragmentAdapter(fragmentManager, tabFragments, titles)
-        homeTabFragmentViewPager.adapter = homeTabFragmentAdapter
-        homeTabLayout.setupWithViewPager(homeTabFragmentViewPager)
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
     }
 
 

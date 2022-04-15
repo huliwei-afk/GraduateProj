@@ -3,27 +3,19 @@ package com.example.graduateproj.commonUtil;
 import android.util.Log;
 
 import com.example.graduateproj.interfaceUtil.HttpRequest;
-import com.example.graduateproj.interfaceUtil.OnDataObtainListener;
+import com.example.graduateproj.interfaceUtil.InterfacesHolder;
+import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean;
 import com.example.graduateproj.mainPack.homePack.model.BannerImageBean;
-import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -73,9 +65,9 @@ public class RxOkHttpUtil {
         return createRetrofit(path).create(HttpRequest.class);
     }
 
-    public void syncHttpRequest(final String path, final OnDataObtainListener onDataObtainListener) {
+    public void syncHttpRequestForBanner(final String path, final InterfacesHolder.OnBannerDataObtainListener onBannerDataObtainListener) {
         createRequest(path)
-                .call()
+                .callBanner()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<BannerImageBean>() {
@@ -84,16 +76,46 @@ public class RxOkHttpUtil {
 
                     @Override
                     public void onSuccess(@NonNull BannerImageBean bean) {
-                        if (onDataObtainListener != null) {
-                            onDataObtainListener.onSuccess(bean);
+                        if (onBannerDataObtainListener != null) {
+                            onBannerDataObtainListener.onSuccess(bean);
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        if (onDataObtainListener != null) {
-                            onDataObtainListener.onFailure(e);
+                        if (onBannerDataObtainListener != null) {
+                            onBannerDataObtainListener.onFailure(e);
                         }
+                    }
+                });
+    }
+
+    public void syncHttpRequestForDonate(final String path, final InterfacesHolder.OnDonateDataObtainListener onDonateDataObtainListener) {
+        createRequest(path)
+                .callDonate()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DonateJsonBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) { }
+
+                    @Override
+                    public void onNext(@NonNull DonateJsonBean donateJsonBean) {
+                        if (onDonateDataObtainListener != null) {
+                            onDonateDataObtainListener.onNext(donateJsonBean);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        if (onDonateDataObtainListener != null) {
+                            onDonateDataObtainListener.onFailure(e);
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

@@ -48,7 +48,7 @@ class ForgetFragment : Fragment() {
             RxClickUtil.clickEvent(arrowBack, it)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    AppNavigator.openLoginFragment(arrowBack)
+                    AppNavigator.backToLoginFragment(arrowBack)
                 }
 
             RxClickUtil.clickEvent(getVerifyCode, it)

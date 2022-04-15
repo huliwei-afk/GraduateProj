@@ -1,33 +1,26 @@
-package com.example.graduateproj.mainPack.homePack.util;
+package com.example.graduateproj.mainPack.homePack.util
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-import java.util.List;
+class HomeTabFragmentAdapter : FragmentStateAdapter {
 
-public class HomeTabFragmentAdapter extends FragmentStatePagerAdapter {
-    private List<Fragment> fragments;
-    private List<String> titles;
+    private var homeTabFragments : List<Fragment>
 
-    public HomeTabFragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
-        super(fm);
-        this.fragments = fragments;
-        this.titles = titles;
+    constructor(fragmentActivity: FragmentActivity, fragments: List<Fragment>) : super(fragmentActivity) {
+        this.homeTabFragments = fragments
     }
 
-    @Override
-    public int getCount() {
-        return fragments.size();
+    constructor(fragment: Fragment, fragments: List<Fragment>) : super(fragment) {
+        this.homeTabFragments = fragments
     }
 
-    @Override
-    public Fragment getItem(int i) {
-        return fragments.get(i);
+    override fun getItemCount(): Int {
+        return homeTabFragments.size
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return titles.get(position);
+    override fun createFragment(position: Int): Fragment {
+        return homeTabFragments[position]
     }
 }

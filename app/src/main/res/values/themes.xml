@@ -15,15 +15,16 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="Theme.GraduateProj.CustomizeSplash">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowDisablePreview">true</item>
-    </style>
-
     <style name="Theme.GraduateProj.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SplashScreen.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/login_white</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.GraduateProj</item>
     </style>
 
 

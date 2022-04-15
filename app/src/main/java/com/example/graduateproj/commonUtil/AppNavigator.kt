@@ -24,7 +24,7 @@ object AppNavigator {
         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_forgetFragment)
     }
 
-    fun openLoginFragment(v: View) {
+    fun backToLoginFragment(v: View) {
         Navigation.findNavController(v).popBackStack()
     }
 

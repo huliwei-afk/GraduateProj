@@ -10,6 +10,7 @@ public class LoginStateUtil {
     private static final String FILE_NAME = "LoginStateFile";
     private static final String PHONE_NUMBER = "PhoneNumber";
     private static final String PASS_WORD = "PassWord";
+    private static final String LOGIN_STATE = "LoginState";
 
     private static LoginStateUtil INSTANCE;
 
@@ -30,8 +31,8 @@ public class LoginStateUtil {
         editor.apply();
     }
 
-    public String getLocalPhoneNumberOrNull() {
-        return sharedPreferences.getString(PHONE_NUMBER, null);
+    public String getLocalPhoneNumberOrDefault() {
+        return sharedPreferences.getString(PHONE_NUMBER, "");
     }
 
     public void savePasswordToLocal(String password) {
@@ -39,10 +40,17 @@ public class LoginStateUtil {
         editor.apply();
     }
 
-    public String getLocalPassWordOrNull() {
-        return sharedPreferences.getString(PASS_WORD, null);
+    public String getLocalPassWordOrDefault() {
+        return sharedPreferences.getString(PASS_WORD, "");
     }
 
-    
+    public void saveLoginStateToLocal(boolean state) {
+        editor.putBoolean(LOGIN_STATE, state);
+        editor.apply();
+    }
+
+    public boolean getLocalLoginStateOrDefault() {
+        return sharedPreferences.getBoolean(LOGIN_STATE, false);
+    }
 
 }
