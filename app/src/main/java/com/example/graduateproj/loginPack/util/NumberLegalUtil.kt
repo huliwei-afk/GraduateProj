@@ -15,19 +15,11 @@ object NumberLegalUtil {
     private const val PHONE_LENGTH = 11
     private const val PASSWORD_LENGTH = 10
 
+    private var verifyCode: Int = Int.MIN_VALUE
+
     fun checkLoginInfoLegal(context: Context, number: String, password: String): Boolean {
         fun checkInfoEmptyOrNot(info: String): Boolean {
             return TextUtils.equals(info, "")
-        }
-
-        if (checkInfoEmptyOrNot(number)) {
-            Toast.makeText(context, FORGET_ACCOUNT, Toast.LENGTH_LONG).show()
-            return false
-        }
-
-        if (checkInfoEmptyOrNot(password)) {
-            Toast.makeText(context, FORGET_PASSWORD, Toast.LENGTH_LONG).show()
-            return false
         }
 
         fun checkPhoneNumberLengthAndFormat(info: String, length: Int): Boolean {
@@ -44,12 +36,22 @@ object NumberLegalUtil {
             return true
         }
 
-        if (!checkPhoneNumberLengthAndFormat(number, 11)) {
+        if (checkInfoEmptyOrNot(number)) {
+            Toast.makeText(context, FORGET_ACCOUNT, Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (checkInfoEmptyOrNot(password)) {
+            Toast.makeText(context, FORGET_PASSWORD, Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if (!checkPhoneNumberLengthAndFormat(number, PHONE_LENGTH)) {
             Toast.makeText(context, ACCOUNT_WRONG, Toast.LENGTH_LONG).show()
             return false
         }
 
-        if (!checkPhoneNumberLengthAndFormat(password, 10)) {
+        if (!checkPhoneNumberLengthAndFormat(password, PASSWORD_LENGTH)) {
             Toast.makeText(context, PASSWORD_WRONG, Toast.LENGTH_LONG).show()
             return false
         }
@@ -59,6 +61,13 @@ object NumberLegalUtil {
 
     fun generateRandomVerifyCode(): String {
         val random = Random()
-        return (random.nextInt(9999-1000+1)+1000).toString() //为变量赋随机值1000-9999
+        val code = random.nextInt(9999 - 1000 + 1) + 1000
+        verifyCode = code
+
+        return verifyCode.toString() //为变量赋随机值1000-9999
+    }
+
+    fun getVerifyCode(): Int {
+        return verifyCode
     }
 }

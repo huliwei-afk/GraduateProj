@@ -1,16 +1,23 @@
 package com.example.graduateproj.loginPack.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
+import com.example.graduateproj.loginPack.presenter.ForgetPresenter
 import com.example.graduateproj.loginPack.util.DialogManager
+import com.example.graduateproj.loginPack.util.NumberLegalUtil
 import java.util.concurrent.TimeUnit
 
 /**
@@ -21,6 +28,11 @@ import java.util.concurrent.TimeUnit
 class ForgetFragment : Fragment() {
     private lateinit var arrowBack: ImageView
     private lateinit var getVerifyCode: TextView
+    private lateinit var forgetPresenter: ForgetPresenter
+    internal lateinit var accountNumber: EditText
+    private lateinit var verifyNumber: EditText
+    private lateinit var passwordLinear: LinearLayout
+    private lateinit var forgetPassword: TextView
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -41,9 +53,27 @@ class ForgetFragment : Fragment() {
     private fun initViews(view: View) {
         arrowBack = view.findViewById(R.id.login_back)
         getVerifyCode = view.findViewById(R.id.get_verify_code)
+        accountNumber = view.findViewById(R.id.account_number)
+        verifyNumber = view.findViewById(R.id.verify_number)
+        passwordLinear = view.findViewById(R.id.password_linear)
+        forgetPassword = view.findViewById(R.id.forget_password)
+
+        forgetPresenter = ForgetPresenter(this)
     }
 
     private fun initEvents() {
+
+        verifyNumber.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (TextUtils.equals(s.toString(), NumberLegalUtil.getVerifyCode().toString()) && passwordLinear.visibility == View.GONE) {
+                    passwordLinear.visibility = View.VISIBLE
+                    forgetPassword.text = forgetPresenter.info
+                }
+            }
+        })
+
         activity?.let {
             RxClickUtil.clickEvent(arrowBack, it)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
@@ -55,7 +85,10 @@ class ForgetFragment : Fragment() {
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
                     context?.let { it ->
-                        DialogManager.showVerifyCodeDialog(it)
+                        if(forgetPresenter.checkCanShowVerifyCode(accountNumber.text.toString())) {
+                            DialogManager.showVerifyCodeDialog(it)
+                        }
+
                     }
                 }
         }

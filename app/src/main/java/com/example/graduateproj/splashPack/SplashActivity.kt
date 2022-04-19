@@ -10,15 +10,13 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.graduateproj.commonUtil.AppNavigator
+import com.example.graduateproj.loginPack.util.LoginStateUtil
 
 class SplashActivity : AppCompatActivity() {
 
     companion object {
         const val DURATION = 1000
     }
-
-    @Volatile
-    private var isReady = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +43,11 @@ class SplashActivity : AppCompatActivity() {
                 )
                 doOnEnd {
                     provider.remove()
-                    AppNavigator.openMainLoginActivity(this@SplashActivity)
+                    if(LoginStateUtil.getInstance(this@SplashActivity).localLoginStateOrDefault) {
+                        AppNavigator.openMainContentActivity(this@SplashActivity)
+                    } else {
+                        AppNavigator.openMainLoginActivity(this@SplashActivity)
+                    }
                     finish()
                 }
                 start()

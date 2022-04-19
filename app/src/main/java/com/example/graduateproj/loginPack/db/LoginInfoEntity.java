@@ -1,17 +1,15 @@
 package com.example.graduateproj.loginPack.db;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "user_table")
 public class LoginInfoEntity {
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id", typeAffinity = ColumnInfo.INTEGER)
-    public int id;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "phoneNumber", typeAffinity = ColumnInfo.TEXT)
     public String phoneNumber;
 
@@ -22,12 +20,4 @@ public class LoginInfoEntity {
         this.phoneNumber = phoneNumber;
         this.passwordNumber = passwordNumber;
     }
-
-    @Ignore
-    public LoginInfoEntity(int id, String phoneNumber, String passwordNumber) {
-        this.id = id;
-        this.phoneNumber = phoneNumber;
-        this.passwordNumber = passwordNumber;
-    }
-
 }

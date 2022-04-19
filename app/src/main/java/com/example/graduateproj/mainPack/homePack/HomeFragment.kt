@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
         homeTabFragmentViewPager.apply {
             adapter = HomeTabFragmentAdapter(this@HomeFragment, tabFragments)
             offscreenPageLimit = 1
-            isUserInputEnabled = false
+            isUserInputEnabled = true
         }
         TabLayoutMediator(homeTabLayout, homeTabFragmentViewPager) { tab, position -> tab.text = titles[position] }.attach()
         homeTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

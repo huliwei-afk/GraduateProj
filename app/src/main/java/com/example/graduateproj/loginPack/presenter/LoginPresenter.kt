@@ -1,10 +1,14 @@
 package com.example.graduateproj.loginPack.presenter
 
 import android.content.Context
+import android.util.Log
+import com.example.graduateproj.db.AppDataBase
+import com.example.graduateproj.db.RoomManager
+import com.example.graduateproj.loginPack.db.LoginInfoEntity
 import com.example.graduateproj.loginPack.ui.LoginFragment
 import com.example.graduateproj.loginPack.util.LoginStateUtil
 import com.example.graduateproj.loginPack.util.NumberLegalUtil
-import kotlin.concurrent.thread
+import kotlinx.coroutines.runBlocking
 
 class LoginPresenter(val view: LoginFragment) {
 
@@ -34,8 +38,8 @@ class LoginPresenter(val view: LoginFragment) {
     }
 
     private fun saveLoginInfoToDB(phoneNumber: String, passwordNumber: String) {
-        thread {
-            //AppDataBase.getInstance(view.requireContext()).loginDao.insertLoginInfo(LoginInfoEntity(phoneNumber, passwordNumber))
+        runBlocking {
+            RoomManager.getInstance().insertLoginInfoToDB(LoginInfoEntity(phoneNumber, passwordNumber))
         }
     }
 

@@ -38,7 +38,6 @@ class MainContentActivity : AppCompatActivity() {
         initViews()
         initRadioGroup()
         initViewPagerAndFragment()
-        //RoomExplorer.show(this, AppDataBase::class.java, DBManager.DB_NAME)
     }
 
     private fun initViews() {
@@ -120,6 +119,7 @@ class MainContentActivity : AppCompatActivity() {
         } else {
             // 退出程序
             super.onBackPressed()
+            finishAffinity()
         }
     }
 }
