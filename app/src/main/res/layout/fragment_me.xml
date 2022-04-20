@@ -12,7 +12,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +39,7 @@
             android:id="@+id/me_fragment_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:text="@string/me_fragment_life_state"
             android:textSize="12sp" />
 
@@ -70,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/me_edit_detail_bg"
         android:elevation="5dp"
@@ -349,6 +350,22 @@
                 android:layout_gravity="center"
                 android:text="@string/me_fragment_ver_info" />
         </RelativeLayout>
+
+        <com.example.graduateproj.commonUI.RoundCornerButton
+            android:id="@+id/fragment_me_quit_button"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="10dp"
+            android:text="@string/fragment_me_quit_button"
+            android:textColor="@color/login_white"
+            android:gravity="center"
+            app:rcb_cornerRadius="50dp"
+            app:rcb_backgroundColorNormal="@color/main_18CAE4"
+            app:rcb_backgroundColorPressed="@color/main_6618CAE4"
+            app:layout_constraintTop_toBottomOf="@+id/relative_version_info" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,10 +31,12 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.graduateproj.R
+import com.example.graduateproj.commonUI.RoundCornerButton
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.FragmentMeBinding
 import com.example.graduateproj.loginPack.util.DialogManager
+import com.example.graduateproj.loginPack.util.LoginStateUtil
 import com.example.graduateproj.mainPack.mePack.presenter.MePresenter
 import com.example.graduateproj.mainPack.mePack.util.DetailStateUtil
 import com.example.graduateproj.mainPack.mePack.util.MeCalendarUtil
@@ -62,6 +64,7 @@ class MeFragment : Fragment() {
     internal lateinit var circleImageHead: CircleImageView
     private lateinit var calendarDay: TextView
     private lateinit var calendarMonth: TextView
+    private lateinit var quitButton: RoundCornerButton
 
     private lateinit var mePresenter: MePresenter
 
@@ -75,6 +78,7 @@ class MeFragment : Fragment() {
         relativeLayoutVerInfo = root.findViewById(R.id.relative_version_info)
         rotateArrow = root.findViewById(R.id.rotate_arrow)
         circleImageHead = root.findViewById(R.id.me_fragment_head)
+        quitButton = root.findViewById(R.id.fragment_me_quit_button)
 
         meName = root.findViewById(R.id.me_fragment_name)
         meSign = root.findViewById(R.id.me_fragment_sign)
@@ -135,6 +139,14 @@ class MeFragment : Fragment() {
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
                     AppNavigator.openOtherActivity(requireContext())
+                }
+
+            RxClickUtil.clickEvent(quitButton, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    LoginStateUtil.getInstance(requireContext()).saveLoginStateToLocal(false)
+                    AppNavigator.openMainLoginActivity(requireContext())
+                    activity?.finish()
                 }
         }
 

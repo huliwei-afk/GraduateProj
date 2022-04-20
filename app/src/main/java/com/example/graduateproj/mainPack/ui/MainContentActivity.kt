@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.graduateproj.R
+import com.example.graduateproj.commonUtil.ToastUtil
 import com.example.graduateproj.databinding.ActivityMainContentBinding
 import com.example.graduateproj.loginPack.util.MainFragmentStateAdapter
 import com.example.graduateproj.mainPack.donatePack.DonateFragment
@@ -114,7 +114,7 @@ class MainContentActivity : AppCompatActivity() {
         val nowTime = System.currentTimeMillis()
         if (nowTime - pressedTime > 2000) {
             // 比较两次按键时间差
-            Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_LONG).show()
+            ToastUtil.showToastCenter(this, "再按一次退出应用")
             pressedTime = nowTime
         } else {
             // 退出程序

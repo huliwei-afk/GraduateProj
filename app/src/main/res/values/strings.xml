@@ -140,6 +140,7 @@
     <string name="other_activity_write">WRITE</string>
     <string name="other_activity_write_desc">写入SD卡权限，开启后可修改本地文件</string>
     <string name="forget_fragment_your_password_is">您的密码是</string>
+    <string name="fragment_me_quit_button">退出登陆</string>
 
 
     <!-- Strings used for fragments for navigation -->

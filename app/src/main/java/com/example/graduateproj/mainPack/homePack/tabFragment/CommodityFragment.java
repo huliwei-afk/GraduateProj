@@ -1,5 +1,6 @@
 package com.example.graduateproj.mainPack.homePack.tabFragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,9 +84,10 @@ public class CommodityFragment extends Fragment {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private void initViews(View view) {
         swipeRefreshLayout = view.findViewById(R.id.home_swipe_refresh);
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_FC438C));
+        swipeRefreshLayout.setColorSchemeColors(R.color.main_FC438C);
 
         electricRecyclerView = view.findViewById(R.id.home_recycler);
         

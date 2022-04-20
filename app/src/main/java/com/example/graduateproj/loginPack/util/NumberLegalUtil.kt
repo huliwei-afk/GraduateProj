@@ -2,7 +2,7 @@ package com.example.graduateproj.loginPack.util
 
 import android.content.Context
 import android.text.TextUtils
-import android.widget.Toast
+import com.example.graduateproj.commonUtil.ToastUtil
 import java.util.*
 
 object NumberLegalUtil {
@@ -37,22 +37,22 @@ object NumberLegalUtil {
         }
 
         if (checkInfoEmptyOrNot(number)) {
-            Toast.makeText(context, FORGET_ACCOUNT, Toast.LENGTH_LONG).show()
+            ToastUtil.showToastBelowCenter(context, FORGET_ACCOUNT)
             return false
         }
 
         if (checkInfoEmptyOrNot(password)) {
-            Toast.makeText(context, FORGET_PASSWORD, Toast.LENGTH_LONG).show()
+            ToastUtil.showToastBelowCenter(context, FORGET_PASSWORD)
             return false
         }
 
         if (!checkPhoneNumberLengthAndFormat(number, PHONE_LENGTH)) {
-            Toast.makeText(context, ACCOUNT_WRONG, Toast.LENGTH_LONG).show()
+            ToastUtil.showToastBelowCenter(context, ACCOUNT_WRONG)
             return false
         }
 
         if (!checkPhoneNumberLengthAndFormat(password, PASSWORD_LENGTH)) {
-            Toast.makeText(context, PASSWORD_WRONG, Toast.LENGTH_LONG).show()
+            ToastUtil.showToastBelowCenter(context, PASSWORD_WRONG)
             return false
         }
 

@@ -1,6 +1,6 @@
 package com.example.graduateproj.loginPack.presenter
 
-import android.widget.Toast
+import com.example.graduateproj.commonUtil.ToastUtil
 import com.example.graduateproj.db.RoomManager
 import com.example.graduateproj.loginPack.ui.ForgetFragment
 import kotlinx.coroutines.runBlocking
@@ -24,7 +24,7 @@ class ForgetPresenter(val view: ForgetFragment) {
         if(getLostPasswordForUser(phoneNumber) != null) {
             return true
         }
-        Toast.makeText(view.requireContext(), ACCOUNT_WRONG, Toast.LENGTH_LONG).show()
+        ToastUtil.showToastCenter(view.requireContext(), ACCOUNT_WRONG)
         return false
     }
 }
