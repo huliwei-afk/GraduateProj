@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
@@ -19,8 +20,7 @@ import com.example.graduateproj.interfaceUtil.OnBannerImageLoadListener
 import com.example.graduateproj.mainPack.homePack.model.BannerImageBean
 import com.example.graduateproj.mainPack.homePack.presenter.HomePresenter
 import com.example.graduateproj.mainPack.homePack.tabFragment.CommodityFragment
-import com.example.graduateproj.mainPack.homePack.tabFragment.ElectricFragment
-import com.example.graduateproj.mainPack.homePack.tabFragment.OtherFragment
+import com.example.graduateproj.mainPack.homePack.tabFragment.RecyclerKind
 import com.example.graduateproj.mainPack.homePack.util.BetterBannerScroll
 import com.example.graduateproj.mainPack.homePack.util.DepthPageTransformer
 import com.example.graduateproj.mainPack.homePack.util.HomeBannerAdapter
@@ -34,12 +34,19 @@ import java.util.*
 
 class HomeFragment : Fragment() {
 
+    companion object {
+        private const val tabElectric = "电子产品"
+        private const val tabDaily = "日用品"
+        private const val tabOther = "其他"
+    }
+
     private val TAG = HomeFragment::class.java.simpleName
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeTabLayout: TabLayout
     private lateinit var homeTabFragmentViewPager: ViewPager2
     private lateinit var homeBanner: ViewPager
     private var titles = arrayListOf<String>()
+    private var titlesImage = arrayListOf<Int>()
     private var tabFragments = arrayListOf<Fragment>()
     private lateinit var homePresenter: HomePresenter
 
@@ -78,38 +85,68 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupTabAndVp() {
+//
+            homeTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    updateTab(tab)
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    updateTab(tab)
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            })
+//        }
+
         titles.apply {
-            add("电子产品")
-            add("日用品")
-            add("其他")
+            add(tabElectric)
+            add(tabDaily)
+            add(tabOther)
+        }
+
+        titlesImage.apply {
+            add(R.drawable.home_tab_electric_icon)
+            add(R.drawable.home_tab_daily_icon)
+            add(R.drawable.home_tab_other_icon)
         }
 
         tabFragments.apply {
-            add(ElectricFragment())
-            add(CommodityFragment())
-            add(OtherFragment())
+            add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
+            add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
+            add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
         }
+
         homeTabFragmentViewPager.apply {
             adapter = HomeTabFragmentAdapter(this@HomeFragment, tabFragments)
             offscreenPageLimit = 1
             isUserInputEnabled = true
         }
-        TabLayoutMediator(homeTabLayout, homeTabFragmentViewPager) { tab, position -> tab.text = titles[position] }.attach()
-        homeTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                //之后再写吧。。。
+
+        TabLayoutMediator(homeTabLayout, homeTabFragmentViewPager, object : TabLayoutMediator.TabConfigurationStrategy{
+            override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+                tab.setCustomView(R.layout.fragment_commodity_tab_icon)
+
+                val customView = tab.customView
+                val tabText = customView?.findViewById<TextView>(R.id.tab_text)
+                val tabImage = customView?.findViewById<ImageView>(R.id.tab_image)
+
+                tabText?.text = titles[position]
+                tabImage?.setImageResource(titlesImage[position])
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
-        })
+        }).attach()
     }
 
+    private fun updateTab(tab: TabLayout.Tab?) {
+        val customView = tab?.customView
+        val tabText = customView?.findViewById<TextView>(R.id.tab_text)
+        if(tab?.isSelected == true) {
+            tabText?.setTextColor(resources.getColor(R.color.main_FC438C))
+        } else {
+            tabText?.setTextColor(resources.getColor(R.color.login_white))
+        }
+    }
 
     private fun executeTimerTask() {
         clearAllTimerTask()
@@ -190,8 +227,8 @@ class HomeFragment : Fragment() {
         homePresenter.getBannerImageDataAndSet()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         executeTimerTask()
     }
 

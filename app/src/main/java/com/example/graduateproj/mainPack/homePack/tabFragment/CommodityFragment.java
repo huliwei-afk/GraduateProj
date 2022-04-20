@@ -1,16 +1,27 @@
 package com.example.graduateproj.mainPack.homePack.tabFragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.graduateproj.R;
+import com.example.graduateproj.mainPack.homePack.model.ElectricBean;
+import com.example.graduateproj.mainPack.homePack.presenter.CommodityPresenter;
+import com.example.graduateproj.mainPack.homePack.util.ElectricItemAdapter;
+import com.example.graduateproj.mainPack.homePack.util.SpaceItemDecoration;
 
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,34 +29,23 @@ import java.util.TimerTask;
  * create an instance of this fragment.
  */
 public class CommodityFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String KIND_KEY = "kind";
+    private static final int ITEM_SPACE = 15;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView electricRecyclerView;
+    private CommodityPresenter commodityPresenter;
+    private List<ElectricBean.ElectricItemBean> electricItemBeanList = new ArrayList<>();
 
     public CommodityFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CommodityFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CommodityFragment newInstance(String param1, String param2) {
+    public static CommodityFragment newInstance(int kind) {
         CommodityFragment fragment = new CommodityFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(KIND_KEY, kind);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,16 +53,50 @@ public class CommodityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_commodity, container, false);
+        View view = inflater.inflate(R.layout.fragment_commodity, container, false);
+        initViews(view);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        int recyclerKind = 0;
+        if (getArguments() != null) {
+            recyclerKind = getArguments().getInt(KIND_KEY);
+        }
+
+        switch (recyclerKind) {
+            case RecyclerKind.RECYCLER_NORMAL:
+                commodityPresenter.getElectricItemAndSet();
+                break;
+//            case RecyclerKind.RECYCLER_GRID:
+//                view = inflater.inflate(R.layout.fragment_commodity1, container, false);
+//                break;
+            default:
+                break;
+        }
+    }
+
+    private void initViews(View view) {
+        swipeRefreshLayout = view.findViewById(R.id.home_swipe_refresh);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_FC438C));
+
+        electricRecyclerView = view.findViewById(R.id.home_recycler);
+        
+        commodityPresenter = new CommodityPresenter(this);
+    }
+
+    public void initRecyclerViewForElectric(List<ElectricBean.ElectricItemBean> list) {
+        electricItemBeanList.addAll(list);
+        electricRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        electricRecyclerView.addItemDecoration(new SpaceItemDecoration(ITEM_SPACE));
+        electricRecyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.electric_recycler_animation)));
+        electricRecyclerView.setAdapter(new ElectricItemAdapter(requireContext(), electricItemBeanList));
     }
 }

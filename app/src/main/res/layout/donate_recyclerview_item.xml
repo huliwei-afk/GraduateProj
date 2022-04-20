@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/sale_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textColor="@color/main_18CAE4"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/sale_icon"
         app:layout_constraintTop_toTopOf="@+id/sale_icon"
@@ -27,15 +28,16 @@
 
     <TextView
         android:id="@+id/sale_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:lineSpacingExtra="8dp"
-        android:minLines="3"
+        android:maxLines="3"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:textColor="@color/login_black"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="@+id/sale_icon"
         app:layout_constraintTop_toBottomOf="@+id/sale_icon"
         tools:text="1234567你是你是" />
@@ -44,17 +46,18 @@
         android:id="@+id/sale_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
         android:text="@string/donate_fragment_more"
         android:textColor="@color/main_FC438C"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/sale_text"
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/sale_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="@+id/sale_text"
         app:layout_constraintTop_toBottomOf="@+id/sale_text" />
@@ -63,9 +66,9 @@
         android:id="@+id/donate_fragment_star"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/donate_fragment_star_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/sale_image"
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
@@ -80,9 +83,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/login_grey"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/sale_image" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

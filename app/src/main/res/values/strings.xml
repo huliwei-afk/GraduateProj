@@ -22,6 +22,7 @@
     <string name="your_verify_code_is">您的验证码是</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_test_fragment">Hello test fragment</string>
 
     <!-- splashAc -->
     <string name="NAME">邮  易</string>

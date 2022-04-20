@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/me_fragment_life_state"
-            android:textSize="9sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

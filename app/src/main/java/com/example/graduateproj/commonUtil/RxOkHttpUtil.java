@@ -6,6 +6,7 @@ import com.example.graduateproj.interfaceUtil.HttpRequest;
 import com.example.graduateproj.interfaceUtil.InterfacesHolder;
 import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean;
 import com.example.graduateproj.mainPack.homePack.model.BannerImageBean;
+import com.example.graduateproj.mainPack.homePack.model.ElectricBean;
 
 import java.util.concurrent.TimeUnit;
 
@@ -116,6 +117,31 @@ public class RxOkHttpUtil {
                     @Override
                     public void onComplete() {
 
+                    }
+                });
+    }
+
+    public void syncHttpRequestForElectric(final String path, final InterfacesHolder.OnElectricDataObtainListener onElectricDataObtainListener) {
+        createRequest(path)
+                .callElectric()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ElectricBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) { }
+
+                    @Override
+                    public void onSuccess(@NonNull ElectricBean bean) {
+                        if (onElectricDataObtainListener != null) {
+                            onElectricDataObtainListener.onSuccess(bean);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        if (onElectricDataObtainListener != null) {
+                            onElectricDataObtainListener.onFailure(e);
+                        }
                     }
                 });
     }
