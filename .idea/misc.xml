@@ -20,6 +20,8 @@
         <entry key="app/src/main/res/drawable/donate_fragment_comment_icon.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/donate_fragment_star_icon.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/home_banner_bg.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/home_banner_indicator_selector.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/home_banner_indicator_unselect.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/home_tab_bg.xml" value="0.1415" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/login_back_arrow.xml" value="0.206" />
@@ -62,13 +64,14 @@
         <entry key="app/src/main/res/layout/fragment_electric.xml" value="0.2203125" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2536231884057971" />
         <entry key="app/src/main/res/layout/fragment_forget.xml" value="0.2346014492753623" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2346014492753623" />
         <entry key="app/src/main/res/layout/fragment_me.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_message.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/fragment_no_account.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2046875" />
         <entry key="app/src/main/res/layout/fragment_other.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/home_recyclerview_daily_item.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/home_recyclerview_electric_item.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/me_fragment_notification_dialog.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/verify_code_dialog.xml" value="0.17018890380859375" />

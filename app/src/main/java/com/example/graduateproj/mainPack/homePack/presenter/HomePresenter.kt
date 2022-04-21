@@ -19,6 +19,8 @@ class HomePresenter(val view: HomeFragment) {
                 InterfacesHolder.OnBannerDataObtainListener {
                 override fun onSuccess(dataList: BannerImageBean?) {
                     dataList?.let {
+                        view.initIndicatorView(view.requireContext(), dataList,view.homeBannerIndicator)
+                        view.updateIndicatorSelectState(0)
                         view.initBanner(dataList)
                     }
                 }

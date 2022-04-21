@@ -2,7 +2,7 @@ package com.example.graduateproj.interfaceUtil;
 
 import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean;
 import com.example.graduateproj.mainPack.homePack.model.BannerImageBean;
-import com.example.graduateproj.mainPack.homePack.model.ElectricBean;
+import com.example.graduateproj.mainPack.homePack.model.RecyclerBean;
 
 public class InterfacesHolder {
     public interface OnBannerDataObtainListener {
@@ -18,7 +18,7 @@ public class InterfacesHolder {
     }
 
     public interface OnElectricDataObtainListener {
-        void onSuccess(ElectricBean dataList);
+        void onSuccess(RecyclerBean dataList);
 
         void onFailure(Throwable e);
     }

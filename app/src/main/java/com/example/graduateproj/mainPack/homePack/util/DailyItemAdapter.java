@@ -18,7 +18,7 @@ import com.example.graduateproj.mainPack.homePack.model.RecyclerBean;
 
 import java.util.List;
 
-public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapter.ViewHolder> {
+public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.ViewHolder> {
 
     private final List<RecyclerBean.RecyclerItemBean> beanList;
     private final Context context;
@@ -26,7 +26,7 @@ public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recyclerview_electric_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recyclerview_daily_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -56,19 +56,20 @@ public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            saleImage = itemView.findViewById(R.id.electric_image);
-            userHead = itemView.findViewById(R.id.user_head);
-            electricStar = itemView.findViewById(R.id.electric_star);
+            saleImage = itemView.findViewById(R.id.daily_image);
+            userHead = itemView.findViewById(R.id.daily_head);
+            electricStar = itemView.findViewById(R.id.daily_star);
 
-            userName = itemView.findViewById(R.id.user_name);
-            saleText = itemView.findViewById(R.id.sale_text);
-            salePrice = itemView.findViewById(R.id.sale_price);
-            whoWants = itemView.findViewById(R.id.who_wants);
+            userName = itemView.findViewById(R.id.daily_name);
+            saleText = itemView.findViewById(R.id.daily_text);
+            salePrice = itemView.findViewById(R.id.daily_price);
+            whoWants = itemView.findViewById(R.id.daily_wants);
         }
     }
 
-    public ElectricItemAdapter(Context context, List<RecyclerBean.RecyclerItemBean> beanList) {
+    public DailyItemAdapter(Context context, List<RecyclerBean.RecyclerItemBean> beanList) {
         this.context = context;
         this.beanList = beanList;
     }
 }
+

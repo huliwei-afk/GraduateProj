@@ -141,6 +141,9 @@
     <string name="other_activity_write_desc">写入SD卡权限，开启后可修改本地文件</string>
     <string name="forget_fragment_your_password_is">您的密码是</string>
     <string name="fragment_me_quit_button">退出登陆</string>
+    <string name="other_activity_room">Room</string>
+    <string name="other_activity_room_ver">version 2.4.1</string>
+    <string name="other_activity_room_description">Jetpack工具包下持久化存储库，类Mysql的关系型数据库，简化数据库操作</string>
 
 
     <!-- Strings used for fragments for navigation -->

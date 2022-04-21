@@ -1,11 +1,13 @@
 package com.example.graduateproj.mainPack.homePack
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.graduateproj.R
+import com.example.graduateproj.commonUtil.ScreenUtil
 import com.example.graduateproj.databinding.FragmentHomeBinding
 import com.example.graduateproj.interfaceUtil.OnBannerImageLoadListener
 import com.example.graduateproj.mainPack.homePack.model.BannerImageBean
@@ -27,7 +30,6 @@ import com.example.graduateproj.mainPack.homePack.util.HomeBannerAdapter
 import com.example.graduateproj.mainPack.homePack.util.HomeTabFragmentAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import java.lang.Exception
 import java.lang.reflect.Field
 import java.util.*
 
@@ -45,6 +47,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeTabLayout: TabLayout
     private lateinit var homeTabFragmentViewPager: ViewPager2
     private lateinit var homeBanner: ViewPager
+    internal lateinit var homeBannerIndicator: LinearLayout
     private var titles = arrayListOf<String>()
     private var titlesImage = arrayListOf<Int>()
     private var tabFragments = arrayListOf<Fragment>()
@@ -62,6 +65,7 @@ class HomeFragment : Fragment() {
         homeTabLayout = root.findViewById(R.id.home_tab_layout)
         homeTabFragmentViewPager = root.findViewById(R.id.tab_fragment_viewpager)
         homeBanner = root.findViewById(R.id.home_banner)
+        homeBannerIndicator = root.findViewById(R.id.banner_indicator)
 
         homePresenter = HomePresenter(this)
 
@@ -71,6 +75,20 @@ class HomeFragment : Fragment() {
         homeBanner.apply {
             setPageTransformer(true, DepthPageTransformer())
             offscreenPageLimit = 5
+            addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    updateIndicatorSelectState(position)
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {}
+            })
             adapter = object :
                 HomeBannerAdapter(bean, OnBannerImageLoadListener { bean, position, imageView ->
                     Glide.with(requireContext())
@@ -80,24 +98,54 @@ class HomeFragment : Fragment() {
 
                 }) {}
             // TODO：这行代码位置不对会导致崩溃
+            //(homeBanner.adapter?.count)?.div(2)?.let { homeBanner.currentItem = it }
             currentItem = (homeBanner.adapter?.count)?.div(2) ?: 0
         }
     }
 
+    fun initIndicatorView(
+        context: Context,
+        bannerBean: BannerImageBean,
+        indicatorLayout: ViewGroup
+    ) {
+        this.homeBannerIndicator = indicatorLayout as LinearLayout
+        for (i in 0 until bannerBean.data.size) {
+            val lp: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                ScreenUtil.dp2pxInt(context, 6F),
+                ScreenUtil.dp2pxInt(context, 6F)
+            )
+            lp.leftMargin = ScreenUtil.dp2pxInt(context, 10F)
+            lp.bottomMargin = ScreenUtil.dp2pxInt(context, 6F)
+            val indicator = View(context)
+            indicator.setBackgroundResource(R.drawable.home_banner_indicator_selector)
+            indicator.layoutParams = lp
+            // 将一个个指示器(ImageView)添加到父布局中
+            indicatorLayout.addView(indicator)
+        }
+    }
+
+    fun updateIndicatorSelectState(position: Int) {
+        // 此时传入的position还未经过处理 同样的需要对position进行取余数处理
+        var positionShadow = position
+        positionShadow %= homeBannerIndicator.childCount
+        // 循环获取指示器父布局中所有的子View
+        for (i in 0 until homeBannerIndicator.childCount) {
+            // 给每个子view设置选中状态
+            // 当i == position为True的时候触发选中状态反之则设置成未选中
+            homeBannerIndicator.getChildAt(i).isSelected = i == positionShadow
+        }
+    }
+
     private fun setupTabAndVp() {
-//
-            homeTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    updateTab(tab)
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    updateTab(tab)
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
-//        }
+        homeTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                updateTab(tab)
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                updateTab(tab)
+            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
 
         titles.apply {
             add(tabElectric)
@@ -113,35 +161,37 @@ class HomeFragment : Fragment() {
 
         tabFragments.apply {
             add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
-            add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
+            add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_GRID))
             add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
         }
 
         homeTabFragmentViewPager.apply {
             adapter = HomeTabFragmentAdapter(this@HomeFragment, tabFragments)
-            offscreenPageLimit = 1
+            offscreenPageLimit = 2
             isUserInputEnabled = true
         }
 
-        TabLayoutMediator(homeTabLayout, homeTabFragmentViewPager, object : TabLayoutMediator.TabConfigurationStrategy{
-            override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-                tab.setCustomView(R.layout.fragment_commodity_tab_icon)
+        TabLayoutMediator(
+            homeTabLayout,
+            homeTabFragmentViewPager,
+            object : TabLayoutMediator.TabConfigurationStrategy {
+                override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+                    tab.setCustomView(R.layout.fragment_commodity_tab_icon)
 
-                val customView = tab.customView
-                val tabText = customView?.findViewById<TextView>(R.id.tab_text)
-                val tabImage = customView?.findViewById<ImageView>(R.id.tab_image)
+                    val customView = tab.customView
+                    val tabText = customView?.findViewById<TextView>(R.id.tab_text)
+                    val tabImage = customView?.findViewById<ImageView>(R.id.tab_image)
 
-                tabText?.text = titles[position]
-                tabImage?.setImageResource(titlesImage[position])
-            }
-
-        }).attach()
+                    tabText?.text = titles[position]
+                    tabImage?.setImageResource(titlesImage[position])
+                }
+            }).attach()
     }
 
     private fun updateTab(tab: TabLayout.Tab?) {
         val customView = tab?.customView
         val tabText = customView?.findViewById<TextView>(R.id.tab_text)
-        if(tab?.isSelected == true) {
+        if (tab?.isSelected == true) {
             tabText?.setTextColor(resources.getColor(R.color.main_FC438C))
         } else {
             tabText?.setTextColor(resources.getColor(R.color.login_white))
