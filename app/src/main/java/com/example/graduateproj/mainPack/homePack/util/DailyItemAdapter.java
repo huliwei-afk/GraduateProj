@@ -14,9 +14,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.graduateproj.R;
+import com.example.graduateproj.commonUI.SelectorImageView;
+import com.example.graduateproj.commonUtil.RxClickUtil;
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.ViewHolder> {
 
@@ -42,6 +47,15 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
         holder.saleText.setText(itemBean.getSaleText());
         holder.salePrice.setText(itemBean.getSalePrice());
         holder.whoWants.setText(itemBean.getWhoWants());
+
+        RxClickUtil.INSTANCE.clickEvent(holder.starIcon, context)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Throwable {
+                        holder.starIcon.toggle(!holder.starIcon.isChecked());
+                    }
+                });
     }
 
     @Override
@@ -50,7 +64,8 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView saleImage, userHead, electricStar;
+        ImageView saleImage, userHead;
+        SelectorImageView starIcon;
         TextView userName, saleText, salePrice, whoWants;
 
         public ViewHolder(@NonNull View itemView) {
@@ -58,7 +73,7 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
 
             saleImage = itemView.findViewById(R.id.daily_image);
             userHead = itemView.findViewById(R.id.daily_head);
-            electricStar = itemView.findViewById(R.id.daily_star);
+            starIcon = itemView.findViewById(R.id.daily_star);
 
             userName = itemView.findViewById(R.id.daily_name);
             saleText = itemView.findViewById(R.id.daily_text);

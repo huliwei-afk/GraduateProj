@@ -8,12 +8,15 @@ import android.view.View
 import androidx.navigation.Navigation
 import com.example.graduateproj.R
 import com.example.graduateproj.loginPack.ui.MainLoginActivity
+import com.example.graduateproj.mainPack.homePack.BannerActivity
 import com.example.graduateproj.mainPack.mePack.ui.DetailActivity
 import com.example.graduateproj.mainPack.mePack.ui.OtherActivity
 import com.example.graduateproj.mainPack.ui.MainContentActivity
 import com.example.graduateproj.mainPack.mePack.ui.PreferActivity
 
 object AppNavigator {
+
+    private const val BANNER_URL = "url"
 
     fun openMainLoginActivity(context: Context) {
         val intent = Intent(context, MainLoginActivity::class.java)
@@ -57,5 +60,11 @@ object AppNavigator {
 
     fun backToMainContentActivity(context: Activity) {
         context.finish()
+    }
+
+    fun openBannerActivity(context: Activity, url: String) {
+        val intent = Intent(context, BannerActivity::class.java)
+        intent.putExtra(BANNER_URL, url)
+        context.startActivity(intent)
     }
 }

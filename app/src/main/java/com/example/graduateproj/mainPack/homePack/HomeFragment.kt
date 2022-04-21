@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
                 override fun onPageScrollStateChanged(state: Int) {}
             })
             adapter = object :
-                HomeBannerAdapter(bean, OnBannerImageLoadListener { bean, position, imageView ->
+                HomeBannerAdapter(bean, requireActivity(), OnBannerImageLoadListener { bean, position, imageView ->
                     Glide.with(requireContext())
                         .load(bean.data[position])
                         .apply(RequestOptions.bitmapTransform(RoundedCorners(40)))
@@ -98,7 +98,6 @@ class HomeFragment : Fragment() {
 
                 }) {}
             // TODO：这行代码位置不对会导致崩溃
-            //(homeBanner.adapter?.count)?.div(2)?.let { homeBanner.currentItem = it }
             currentItem = (homeBanner.adapter?.count)?.div(2) ?: 0
         }
     }

@@ -16,7 +16,7 @@ public class LoginInfoEntity {
     @ColumnInfo(name = "passwordNumber", typeAffinity = ColumnInfo.TEXT)
     public String passwordNumber;
 
-    public LoginInfoEntity(String phoneNumber, String passwordNumber) {
+    public LoginInfoEntity(@NonNull String phoneNumber, String passwordNumber) {
         this.phoneNumber = phoneNumber;
         this.passwordNumber = passwordNumber;
     }

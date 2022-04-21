@@ -21,6 +21,7 @@ public class ToastUtil {
         toast.show();
     }
 
+    @Deprecated
     public static void showToastBelowCenter(Context context, String text) {
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         WindowManager windowManager = (WindowManager) context.getSystemService(WINDOW_SERVICE);

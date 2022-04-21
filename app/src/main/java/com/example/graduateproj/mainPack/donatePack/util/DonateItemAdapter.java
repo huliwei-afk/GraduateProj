@@ -12,9 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.graduateproj.R;
+import com.example.graduateproj.commonUI.SelectorImageView;
+import com.example.graduateproj.commonUtil.RxClickUtil;
 import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.ViewHolder> {
 
@@ -37,6 +42,15 @@ public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.Vi
         holder.saleName.setText(itemBean.getSaleName());
         Glide.with(context).load(itemBean.getSaleImage()).into(holder.saleImage);
         holder.saleText.setText(itemBean.getSaleText());
+
+        RxClickUtil.INSTANCE.clickEvent(holder.starIcon, context)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Throwable {
+                        holder.starIcon.toggle(!holder.starIcon.isChecked());
+                    }
+                });
     }
 
     @Override
@@ -45,7 +59,8 @@ public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView saleIcon, saleImage, starIcon, commentIcon;
+        ImageView saleIcon, saleImage, commentIcon;
+        SelectorImageView starIcon;
         TextView saleName, saleText;
 
         public ViewHolder(@NonNull View itemView) {

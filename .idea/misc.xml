@@ -19,6 +19,8 @@
         <entry key="app/src/main/res/drawable/donate_fragment_add_icon.xml" value="0.1105" />
         <entry key="app/src/main/res/drawable/donate_fragment_comment_icon.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/donate_fragment_star_icon.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/donate_fragment_star_icon_select.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/donate_fragment_star_icon_unselect.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/home_banner_bg.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/home_banner_indicator_selector.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/home_banner_indicator_unselect.xml" value="0.141" />
@@ -45,6 +47,7 @@
         <entry key="app/src/main/res/drawable/prefer_settings_switch_track_false.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/prefer_settings_switch_track_on.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/verify_code_dialog_bg.xml" value="0.1045" />
+        <entry key="app/src/main/res/layout/activity_banner.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.2536231884057971" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_main_content.xml" value="0.25" />
