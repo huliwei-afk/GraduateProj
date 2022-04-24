@@ -3,6 +3,7 @@ package com.example.graduateproj.mainPack.ui
 import android.animation.ValueAnimator
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.ToastUtil
+import com.example.graduateproj.commonUtil.WindowBarStatusUtil
 import com.example.graduateproj.databinding.ActivityMainContentBinding
 import com.example.graduateproj.loginPack.util.MainFragmentStateAdapter
 import com.example.graduateproj.mainPack.donatePack.DonateFragment
@@ -62,16 +64,20 @@ class MainContentActivity : AppCompatActivity() {
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radio_button_home -> {
+                    WindowBarStatusUtil.setBarStatus(this, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+                    WindowBarStatusUtil.initBar(this, resources.getColor(R.color.login_white), 1)
                     mainViewPager.setCurrentItem(0, false)
                     showClickAnim(radioButtonForHome)
                 }
 
                 R.id.radio_button_donate -> {
+                    WindowBarStatusUtil.initBar(this, resources.getColor(R.color.main_18CAE4), 1)
                     mainViewPager.setCurrentItem(1, false)
                     showClickAnim(radioButtonForDonate)
                 }
 
                 R.id.radio_button_me -> {
+                    WindowBarStatusUtil.initBar(this, resources.getColor(R.color.main_18CAE4), 1)
                     mainViewPager.setCurrentItem(2, false)
                     showClickAnim(radioButtonForMe)
                 }

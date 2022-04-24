@@ -53,7 +53,6 @@ class SplashActivity : AppCompatActivity() {
                 start()
             }
         }
-
     }
 
     //控制画面时长
@@ -63,5 +62,4 @@ class SplashActivity : AppCompatActivity() {
             (SystemClock.uptimeMillis() - initTime) < DURATION
         }
     }
-
 }

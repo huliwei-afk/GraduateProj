@@ -20,6 +20,9 @@
         android:theme="@style/Theme.GraduateProj"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".mainPack.homePack.ItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".mainPack.homePack.BannerActivity"
             android:exported="false" />
         <activity

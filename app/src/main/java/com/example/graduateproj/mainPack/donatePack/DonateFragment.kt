@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,12 +14,11 @@ import com.example.graduateproj.databinding.FragmentDonateBinding
 import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.donatePack.presenter.DonatePresenter
 import com.example.graduateproj.mainPack.donatePack.util.DonateItemAdapter
-import kotlinx.coroutines.CoroutineScope
 
 class DonateFragment : Fragment() {
 
     private var _binding: FragmentDonateBinding? = null
-    private var donateBeanList : MutableList<DonateJsonBean.DonateItemBean> = ArrayList()
+    private var donateBeanList: MutableList<DonateJsonBean.DonateItemBean> = ArrayList()
     internal lateinit var donateRecyclerView: RecyclerView
     private lateinit var donatePresenter: DonatePresenter
     internal lateinit var donateRefresh: SwipeRefreshLayout
@@ -48,10 +45,11 @@ class DonateFragment : Fragment() {
     }
 
     private fun initViews(root: View) {
-        donateRecyclerView = root.findViewById<RecyclerView?>(R.id.donate_recyclerview)
-        donateRefresh = root.findViewById<SwipeRefreshLayout?>(R.id.donate_refresh_layout).apply {
-            setColorSchemeColors(resources.getColor(R.color.main_FC438C))
-        }
+        donateRecyclerView = root.findViewById(R.id.donate_recyclerview)
+        donateRefresh =
+            root.findViewById<SwipeRefreshLayout?>(R.id.donate_refresh_layout).apply {
+                setColorSchemeColors(resources.getColor(R.color.main_FC438C))
+            }
 
         donatePresenter = DonatePresenter(this)
     }

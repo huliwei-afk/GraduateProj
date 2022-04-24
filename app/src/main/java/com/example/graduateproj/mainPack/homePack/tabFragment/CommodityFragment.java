@@ -95,7 +95,7 @@ public class CommodityFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.addItemDecoration(new LinearItemDecoration(ITEM_SPACE));
         recyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.electric_recycler_animation)));
-        recyclerView.setAdapter(new ElectricItemAdapter(requireContext(), electricItemBeanList));
+        recyclerView.setAdapter(new ElectricItemAdapter(requireActivity(), electricItemBeanList));
     }
 
     public void initRecyclerViewForDaily(List<RecyclerBean.RecyclerItemBean> list) {

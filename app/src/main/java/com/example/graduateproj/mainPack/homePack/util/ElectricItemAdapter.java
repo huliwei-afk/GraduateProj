@@ -1,6 +1,6 @@
 package com.example.graduateproj.mainPack.homePack.util;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.SelectorImageView;
+import com.example.graduateproj.commonUtil.AppNavigator;
 import com.example.graduateproj.commonUtil.RxClickUtil;
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean;
 
@@ -26,7 +27,7 @@ import io.reactivex.rxjava3.functions.Consumer;
 public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapter.ViewHolder> {
 
     private final List<RecyclerBean.RecyclerItemBean> beanList;
-    private final Context context;
+    private final Activity context;
 
     @NonNull
     @Override
@@ -48,19 +49,23 @@ public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapte
         holder.salePrice.setText(itemBean.getSalePrice());
         holder.whoWants.setText(itemBean.getWhoWants());
 
-        RxClickUtil.INSTANCE.clickEvent(holder.starIcon, context)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe(new Consumer<Object>() {
-                    @Override
-                    public void accept(Object o) throws Throwable {
-                        holder.starIcon.toggle(!holder.starIcon.isChecked());
-                    }
-                });
+        initEvents(holder);
     }
 
     @Override
     public int getItemCount() {
         return beanList == null ? 0 : beanList.size();
+    }
+
+    // 保证getAdapterPosition返回的数据正确
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -82,8 +87,28 @@ public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapte
         }
     }
 
-    public ElectricItemAdapter(Context context, List<RecyclerBean.RecyclerItemBean> beanList) {
+    public ElectricItemAdapter(Activity context, List<RecyclerBean.RecyclerItemBean> beanList) {
         this.context = context;
         this.beanList = beanList;
+    }
+
+    private void initEvents(ViewHolder holder) {
+        RxClickUtil.INSTANCE.clickEvent(holder.starIcon, context)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Throwable {
+                        holder.starIcon.toggle(!holder.starIcon.isChecked());
+                    }
+                });
+
+        RxClickUtil.INSTANCE.clickEvent(holder.itemView, context)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Throwable {
+                        AppNavigator.INSTANCE.openItemActivity(context, beanList.get(holder.getAdapterPosition()));
+                    }
+                });
     }
 }

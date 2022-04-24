@@ -9,6 +9,8 @@ import androidx.navigation.Navigation
 import com.example.graduateproj.R
 import com.example.graduateproj.loginPack.ui.MainLoginActivity
 import com.example.graduateproj.mainPack.homePack.BannerActivity
+import com.example.graduateproj.mainPack.homePack.ItemActivity
+import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
 import com.example.graduateproj.mainPack.mePack.ui.DetailActivity
 import com.example.graduateproj.mainPack.mePack.ui.OtherActivity
 import com.example.graduateproj.mainPack.ui.MainContentActivity
@@ -17,6 +19,7 @@ import com.example.graduateproj.mainPack.mePack.ui.PreferActivity
 object AppNavigator {
 
     private const val BANNER_URL = "url"
+    private const val ITEM_OBJECT = "item"
 
     fun openMainLoginActivity(context: Context) {
         val intent = Intent(context, MainLoginActivity::class.java)
@@ -65,6 +68,12 @@ object AppNavigator {
     fun openBannerActivity(context: Activity, url: String) {
         val intent = Intent(context, BannerActivity::class.java)
         intent.putExtra(BANNER_URL, url)
+        context.startActivity(intent)
+    }
+
+    fun openItemActivity(context: Activity, bean: RecyclerBean.RecyclerItemBean) {
+        val intent = Intent(context, ItemActivity::class.java)
+        intent.putExtra(ITEM_OBJECT, bean)
         context.startActivity(intent)
     }
 }

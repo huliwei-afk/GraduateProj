@@ -49,10 +49,11 @@
         <entry key="app/src/main/res/drawable/verify_code_dialog_bg.xml" value="0.1045" />
         <entry key="app/src/main/res/layout/activity_banner.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.2536231884057971" />
+        <entry key="app/src/main/res/layout/activity_item.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_main_content.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main_login.xml" value="0.28707733154296877" />
-        <entry key="app/src/main/res/layout/activity_other.xml" value="0.2552083333333333" />
+        <entry key="app/src/main/res/layout/activity_other.xml" value="0.22545454545454546" />
         <entry key="app/src/main/res/layout/activity_prefer.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.2346014492753623" />
         <entry key="app/src/main/res/layout/bottom_nav_icon.xml" value="0.2346014492753623" />
