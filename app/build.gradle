@@ -97,7 +97,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     // circleImage
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     // net
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'

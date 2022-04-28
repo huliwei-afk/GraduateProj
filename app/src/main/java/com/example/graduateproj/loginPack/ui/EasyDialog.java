@@ -1,6 +1,5 @@
 package com.example.graduateproj.loginPack.ui;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -9,9 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.graduateproj.R;
+import com.example.graduateproj.commonUI.CommonMoveDownDialog;
 import com.example.graduateproj.loginPack.util.NumberLegalUtil;
 
-public class EasyDialog extends Dialog {
+public class EasyDialog extends CommonMoveDownDialog {
 
     private TextView verifyCode;
 

@@ -46,6 +46,8 @@
         <entry key="app/src/main/res/drawable/prefer_settings_switch_track.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/prefer_settings_switch_track_false.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/prefer_settings_switch_track_on.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/round_main_green_bg.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/round_main_pink_bg.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/verify_code_dialog_bg.xml" value="0.1045" />
         <entry key="app/src/main/res/layout/activity_banner.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.2536231884057971" />
@@ -56,6 +58,7 @@
         <entry key="app/src/main/res/layout/activity_other.xml" value="0.22545454545454546" />
         <entry key="app/src/main/res/layout/activity_prefer.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.2346014492753623" />
+        <entry key="app/src/main/res/layout/add_donate_dialog.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/bottom_nav_icon.xml" value="0.2346014492753623" />
         <entry key="app/src/main/res/layout/content_detail.xml" value="0.2536231884057971" />
         <entry key="app/src/main/res/layout/donate_recyclerview_item.xml" value="0.125" />

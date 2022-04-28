@@ -10,10 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.graduateproj.R
+import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.FragmentDonateBinding
+import com.example.graduateproj.loginPack.util.DialogManager
 import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.donatePack.presenter.DonatePresenter
 import com.example.graduateproj.mainPack.donatePack.util.DonateItemAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.concurrent.TimeUnit
 
 class DonateFragment : Fragment() {
 
@@ -22,6 +26,7 @@ class DonateFragment : Fragment() {
     internal lateinit var donateRecyclerView: RecyclerView
     private lateinit var donatePresenter: DonatePresenter
     internal lateinit var donateRefresh: SwipeRefreshLayout
+    private lateinit var donateButton: FloatingActionButton
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -50,6 +55,7 @@ class DonateFragment : Fragment() {
             root.findViewById<SwipeRefreshLayout?>(R.id.donate_refresh_layout).apply {
                 setColorSchemeColors(resources.getColor(R.color.main_FC438C))
             }
+        donateButton = root.findViewById(R.id.donate_fab)
 
         donatePresenter = DonatePresenter(this)
     }
@@ -58,6 +64,14 @@ class DonateFragment : Fragment() {
         donateRefresh.setOnRefreshListener {
             donatePresenter.getMoreDonateItem(donateBeanList)
 
+        }
+
+        activity?.let {
+            RxClickUtil.clickEvent(donateButton, it)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    DialogManager.showAddDonateDialog(requireContext())
+                }
         }
     }
 

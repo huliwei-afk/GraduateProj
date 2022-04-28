@@ -45,10 +45,11 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/donate_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="170dp"
+        android:layout_marginBottom="150dp"
         android:backgroundTint="@color/main_FC438C"
         android:src="@drawable/donate_fragment_add_icon"
         app:borderWidth="0dp"

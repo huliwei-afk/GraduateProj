@@ -144,6 +144,9 @@
     <string name="other_activity_room">Room</string>
     <string name="other_activity_room_ver">version 2.4.1</string>
     <string name="other_activity_room_description">Jetpack工具包下持久化存储库，类Mysql的关系型数据库，简化数据库操作</string>
+    <string name="donate_dialog_title">猜你想发：</string>
+    <string name="new_price_text">新的二手商品</string>
+    <string name="new_free_text">新的赠送商品</string>
 
 
     <!-- Strings used for fragments for navigation -->

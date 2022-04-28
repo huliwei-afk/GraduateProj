@@ -8,11 +8,13 @@ import androidx.annotation.NonNull
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.ScreenUtil
 import com.example.graduateproj.loginPack.ui.EasyDialog
+import com.example.graduateproj.mainPack.donatePack.ui.DonateDialog
 import com.example.graduateproj.mainPack.mePack.ui.NotificationDialog
 
 object DialogManager {
 
-    private const val DIALOG_MAX_HEIGHT = 300F
+    private const val VERIFY_CODE_DIALOG_MAX_HEIGHT = 300F
+    private const val ADD_DONATE_DIALOG_MAX_HEIGHT = 230F
 
     private const val HAS_DYNAMIC_HINT = "今日有新动态噢！"
     private const val NO_DYNAMIC_HINT = "今天没有新动态，快去圈子逛逛吧！"
@@ -27,7 +29,7 @@ object DialogManager {
             setGravity(Gravity.BOTTOM)
             setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ScreenUtil.dp2pxInt(context, DIALOG_MAX_HEIGHT)
+                ScreenUtil.dp2pxInt(context, VERIFY_CODE_DIALOG_MAX_HEIGHT)
             )
             setWindowAnimations(R.style.dialogAnimation)
         }
@@ -46,6 +48,24 @@ object DialogManager {
         window?.apply {
             setGravity(Gravity.CENTER)
             setWindowAnimations(R.style.notificationAnimation)
+        }
+
+        dialog.show()
+    }
+
+    fun showAddDonateDialog(@NonNull context: Context) {
+        val dialog = DonateDialog(context, R.style.verify_dialog)
+        val view = View.inflate(context, R.layout.add_donate_dialog, null)
+        dialog.setContentView(view)
+
+        val window = dialog.window
+        window?.apply {
+            setGravity(Gravity.BOTTOM)
+            setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ScreenUtil.dp2pxInt(context, ADD_DONATE_DIALOG_MAX_HEIGHT)
+            )
+            setWindowAnimations(R.style.dialogAnimation)
         }
 
         dialog.show()
