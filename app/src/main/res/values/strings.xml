@@ -147,6 +147,7 @@
     <string name="donate_dialog_title">猜你想发：</string>
     <string name="new_price_text">新的二手商品</string>
     <string name="new_free_text">新的赠送商品</string>
+    <string name="item_contact_him">联系TA</string>
 
 
     <!-- Strings used for fragments for navigation -->

@@ -1,5 +1,6 @@
 package com.example.graduateproj.mainPack.homePack.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.SelectorImageView;
+import com.example.graduateproj.commonUtil.AppNavigator;
 import com.example.graduateproj.commonUtil.RxClickUtil;
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean;
 
@@ -26,7 +28,7 @@ import io.reactivex.rxjava3.functions.Consumer;
 public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.ViewHolder> {
 
     private final List<RecyclerBean.RecyclerItemBean> beanList;
-    private final Context context;
+    private final Activity context;
 
     @NonNull
     @Override
@@ -40,7 +42,7 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RecyclerBean.RecyclerItemBean itemBean = beanList.get(position);
 
-        Glide.with(context).load(itemBean.getSaleImage()).apply(RequestOptions.bitmapTransform(new RoundedCorners(20))).into(holder.saleImage);
+        Glide.with(context).load(itemBean.getSaleImage()).apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20, 20, 0, 0))).into(holder.saleImage);
         Glide.with(context).load(itemBean.getUserHead()).into(holder.userHead);
 
         holder.userName.setText(itemBean.getUserName());
@@ -48,14 +50,7 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
         holder.salePrice.setText(itemBean.getSalePrice());
         holder.whoWants.setText(itemBean.getWhoWants());
 
-        RxClickUtil.INSTANCE.clickEvent(holder.starIcon, context)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe(new Consumer<Object>() {
-                    @Override
-                    public void accept(Object o) throws Throwable {
-                        holder.starIcon.toggle(!holder.starIcon.isChecked());
-                    }
-                });
+        initEvents(holder);
     }
 
     @Override
@@ -82,9 +77,29 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
         }
     }
 
-    public DailyItemAdapter(Context context, List<RecyclerBean.RecyclerItemBean> beanList) {
+    public DailyItemAdapter(Activity context, List<RecyclerBean.RecyclerItemBean> beanList) {
         this.context = context;
         this.beanList = beanList;
+    }
+
+    private void initEvents(ViewHolder holder) {
+        RxClickUtil.INSTANCE.clickEvent(holder.starIcon, context)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Throwable {
+                        holder.starIcon.toggle(!holder.starIcon.isChecked());
+                    }
+                });
+
+        RxClickUtil.INSTANCE.clickEvent(holder.itemView, context)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Throwable {
+                        AppNavigator.INSTANCE.openItemActivity(context, beanList.get(holder.getAdapterPosition()));
+                    }
+                });
     }
 }
 

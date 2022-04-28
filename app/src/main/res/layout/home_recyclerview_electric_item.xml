@@ -6,8 +6,7 @@
     android:layout_height="120dp"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
-    android:background="@drawable/me_edit_detail_bg"
-    android:elevation="5dp">
+    android:background="@drawable/me_edit_detail_bg">
 
     <ImageView
         android:id="@+id/electric_image"

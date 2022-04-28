@@ -11,7 +11,6 @@ import android.view.animation.LayoutAnimationController;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -36,7 +35,7 @@ import java.util.List;
 public class CommodityFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String KIND_KEY = "kind";
-    private static final int ITEM_SPACE = 15;
+    private static final int ITEM_SPACE = 10;
     private static final int LAR_SPACE = 5;
 
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -102,6 +101,6 @@ public class CommodityFragment extends Fragment {
         dailyItemBeanList.addAll(list);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
         recyclerView.addItemDecoration(new GridItemDecoration(ITEM_SPACE, LAR_SPACE));
-        recyclerView.setAdapter(new DailyItemAdapter(requireContext(), dailyItemBeanList));
+        recyclerView.setAdapter(new DailyItemAdapter(requireActivity(), dailyItemBeanList));
     }
 }

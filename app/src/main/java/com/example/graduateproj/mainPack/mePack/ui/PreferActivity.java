@@ -1,6 +1,7 @@
 package com.example.graduateproj.mainPack.mePack.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUtil.AppNavigator;
 import com.example.graduateproj.commonUtil.RxClickUtil;
+import com.example.graduateproj.commonUtil.WindowBarStatusUtil;
 import com.example.graduateproj.mainPack.mePack.util.PreferStateUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -25,6 +27,7 @@ public class PreferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prefer);
 
+        WindowBarStatusUtil.setBarStatus(this, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         initViews();
         initEvents();
     }

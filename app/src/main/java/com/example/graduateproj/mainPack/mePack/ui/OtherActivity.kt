@@ -1,11 +1,13 @@
 package com.example.graduateproj.mainPack.mePack.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
+import com.example.graduateproj.commonUtil.WindowBarStatusUtil
 import java.util.concurrent.TimeUnit
 
 class OtherActivity : AppCompatActivity() {
@@ -15,6 +17,7 @@ class OtherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other)
 
+        WindowBarStatusUtil.setBarStatus(this, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         initViews()
         initEvents()
     }

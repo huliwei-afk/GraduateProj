@@ -89,7 +89,7 @@ class MainContentActivity : AppCompatActivity() {
         val allFragments: List<Fragment> = listOf(HomeFragment(), DonateFragment(), MeFragment())
         mainViewPager.apply {
             adapter = MainFragmentStateAdapter(this@MainContentActivity, allFragments)
-            mainViewPager.offscreenPageLimit = 1
+            mainViewPager.offscreenPageLimit = 2
             isUserInputEnabled = false
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

@@ -1,16 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/login_white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".mainPack.homePack.ItemActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/item_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/login_back_arrow" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/item_seller_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/back" />
+
+        <TextView
+            android:id="@+id/seller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/item_seller_head"
+            android:gravity="center_vertical"
+            android:textColor="@color/main_18CAE4"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="小店" />
+
+        <com.example.graduateproj.commonUI.RoundCornerButton
+            android:id="@+id/contact_button"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="@string/item_contact_him"
+            android:textColor="@color/login_white"
+            android:textStyle="bold"
+            app:rcb_backgroundColorNormal="@color/main_18CAE4"
+            app:rcb_backgroundColorPressed="@color/main_6618CAE4"
+            app:rcb_cornerRadius="50dp" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/seller_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.core.widget.NestedScrollView>
+            <RelativeLayout
+                android:id="@+id/detail_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/seller_image">
+
+                <TextView
+                    android:id="@+id/seller_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/main_FC438C"
+                    tools:text="$234"/>
+
+                <TextView
+                    android:id="@+id/wants_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/login_grey"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    tools:text="2000人想要" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/seller_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/login_black"
+                android:textSize="17sp"
+                app:layout_constraintTop_toBottomOf="@+id/detail_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
