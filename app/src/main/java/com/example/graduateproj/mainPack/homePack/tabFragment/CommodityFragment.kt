@@ -1,106 +1,136 @@
-package com.example.graduateproj.mainPack.homePack.tabFragment;
+package com.example.graduateproj.mainPack.homePack.tabFragment
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.example.graduateproj.R;
-import com.example.graduateproj.mainPack.homePack.model.RecyclerBean;
-import com.example.graduateproj.mainPack.homePack.presenter.CommodityPresenter;
-import com.example.graduateproj.mainPack.homePack.util.DailyItemAdapter;
-import com.example.graduateproj.mainPack.homePack.util.ElectricItemAdapter;
-import com.example.graduateproj.mainPack.homePack.util.GridItemDecoration;
-import com.example.graduateproj.mainPack.homePack.util.LinearItemDecoration;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.graduateproj.R
+import com.example.graduateproj.mainPack.homePack.model.RecyclerBean.RecyclerItemBean
+import com.example.graduateproj.mainPack.homePack.presenter.CommodityPresenter
+import com.example.graduateproj.mainPack.homePack.util.*
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link CommodityFragment#newInstance} factory method to
+ * A simple [Fragment] subclass.
+ * Use the [CommodityFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-public class CommodityFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String KIND_KEY = "kind";
-    private static final int ITEM_SPACE = 10;
-    private static final int LAR_SPACE = 5;
+class CommodityFragment : Fragment() {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
-    private CommodityPresenter commodityPresenter;
-    private List<RecyclerBean.RecyclerItemBean> electricItemBeanList = new ArrayList<>();
-    private List<RecyclerBean.RecyclerItemBean> dailyItemBeanList = new ArrayList<>();
-
-    public CommodityFragment() {
-        // Required empty public constructor
-    }
-
-    public static CommodityFragment newInstance(int kind) {
-        CommodityFragment fragment = new CommodityFragment();
-        Bundle args = new Bundle();
-        args.putInt(KIND_KEY, kind);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_commodity, container, false);
-        initViews(view);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        int recyclerKind = 0;
-        if (getArguments() != null) {
-            recyclerKind = getArguments().getInt(KIND_KEY);
+    companion object {
+        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+        private const val KIND_KEY = "kind"
+        private const val ITEM_SPACE = 10
+        private const val LAR_SPACE = 5
+        fun newInstance(kind: Int): CommodityFragment {
+            val fragment = CommodityFragment()
+            val args = Bundle()
+            args.putInt(KIND_KEY, kind)
+            fragment.arguments = args
+            return fragment
         }
-        commodityPresenter.getItemAndSet(recyclerKind);
     }
 
-    @SuppressLint("ResourceAsColor")
-    private void initViews(@NonNull View view) {
-        swipeRefreshLayout = view.findViewById(R.id.home_swipe_refresh);
-        swipeRefreshLayout.setColorSchemeColors(R.color.main_FC438C);
+    internal lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    internal lateinit var recyclerView: RecyclerView
+    private lateinit var commodityPresenter: CommodityPresenter
+    private val electricItemBeanList: MutableList<RecyclerItemBean> = ArrayList()
+    private val dailyItemBeanList: MutableList<RecyclerItemBean> = ArrayList()
+    private val otherItemBeanList: MutableList<RecyclerItemBean> = ArrayList()
 
-        recyclerView = view.findViewById(R.id.home_recycler);
+    private var kind = Int.MIN_VALUE
 
-        commodityPresenter = new CommodityPresenter(this);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (arguments != null) {
+            kind = requireArguments().getInt(KIND_KEY)
+        }
+        super.onCreate(savedInstanceState)
     }
 
-    public void initRecyclerViewForElectric(List<RecyclerBean.RecyclerItemBean> list) {
-        electricItemBeanList.addAll(list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.addItemDecoration(new LinearItemDecoration(ITEM_SPACE));
-        recyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.electric_recycler_animation)));
-        recyclerView.setAdapter(new ElectricItemAdapter(requireActivity(), electricItemBeanList));
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_commodity, container, false)
+        initViews(view)
+        initEvents()
+        return view
     }
 
-    public void initRecyclerViewForDaily(List<RecyclerBean.RecyclerItemBean> list) {
-        dailyItemBeanList.addAll(list);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
-        recyclerView.addItemDecoration(new GridItemDecoration(ITEM_SPACE, LAR_SPACE));
-        recyclerView.setAdapter(new DailyItemAdapter(requireActivity(), dailyItemBeanList));
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        commodityPresenter.getItemAndSet(kind)
+    }
+
+    private fun initViews(view: View) {
+        swipeRefreshLayout = view.findViewById<SwipeRefreshLayout?>(R.id.home_swipe_refresh).apply {
+            setColorSchemeColors(resources.getColor(R.color.main_FC438C))
+        }
+
+        recyclerView = view.findViewById(R.id.home_recycler)
+        commodityPresenter = CommodityPresenter(this)
+    }
+
+    private fun initEvents() {
+        swipeRefreshLayout.setOnRefreshListener {
+            when(kind) {
+                RecyclerKind.RECYCLER_NORMAL -> commodityPresenter.getMoreItem(electricItemBeanList)
+                RecyclerKind.RECYCLER_GRID -> commodityPresenter.getMoreItem(dailyItemBeanList)
+                RecyclerKind.RECYCLER_STAGGERED -> commodityPresenter.getMoreItem(otherItemBeanList)
+            }
+        }
+    }
+
+    fun initRecyclerViewForElectric(list: List<RecyclerItemBean>) {
+        electricItemBeanList.addAll(list)
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(LinearItemDecoration(ITEM_SPACE))
+            layoutAnimation = LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.electric_recycler_animation
+                )
+            )
+            adapter = ElectricItemAdapter(requireActivity(), electricItemBeanList)
+        }
+    }
+
+    fun initRecyclerViewForDaily(list: List<RecyclerItemBean>) {
+        dailyItemBeanList.addAll(list)
+        recyclerView.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            addItemDecoration(GridItemDecoration(ITEM_SPACE, LAR_SPACE))
+            layoutAnimation = LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.donate_recycler_animation
+                )
+            )
+            adapter = DailyItemAdapter(requireActivity(), dailyItemBeanList)
+        }
+    }
+
+    fun initRecyclerViewForOther(list: List<RecyclerItemBean>) {
+        otherItemBeanList.addAll(list)
+        recyclerView.apply {
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            addItemDecoration(GridItemDecoration(ITEM_SPACE, LAR_SPACE))
+            layoutAnimation = LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.donate_recycler_animation
+                )
+            )
+            adapter = OtherItemAdapter(requireActivity(), otherItemBeanList)
+        }
     }
 }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -79,6 +81,12 @@ class DonateFragment : Fragment() {
         donateBeanList.addAll(dataList)
         donateRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
+            layoutAnimation = LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.donate_recycler_animation
+                )
+            )
             adapter = context?.let { DonateItemAdapter(it, donateBeanList) }
         }
     }

@@ -61,7 +61,6 @@ class DonatePresenter(val view: DonateFragment) {
     }
 
     private fun manipulateRecyclerView(originalList: MutableList<DonateJsonBean.DonateItemBean>, size: Int) {
-        view.donateRecyclerView.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(view.requireContext(), R.anim.donate_recycler_animation))
         view.donateRecyclerView.adapter?.notifyItemRangeInserted(originalList.size - 1, size)
         view.donateRecyclerView.scheduleLayoutAnimation()
         view.donateRefresh.isRefreshing = false

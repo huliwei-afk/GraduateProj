@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- adjustViewBounds 适配图片宽度一定，高度自适应的效果，但与Glide的圆角处理有冲突-->
+    <ImageView
+        android:id="@+id/other_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/other_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/login_black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/other_image"
+        tools:text="12345678" />
+
+    <TextView
+        android:id="@+id/other_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/main_FC438C"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@id/other_text"
+        app:layout_constraintTop_toBottomOf="@id/other_text"
+        tools:text="¥234" />
+
+    <TextView
+        android:id="@+id/other_wants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/other_price"
+        app:layout_constraintLeft_toRightOf="@+id/other_price"
+        app:layout_constraintTop_toTopOf="@+id/other_price"
+        tools:text="23想要" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/other_head"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@id/other_price"
+        app:layout_constraintTop_toBottomOf="@+id/other_price" />
+
+
+    <TextView
+        android:id="@+id/other_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/main_18CAE4"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/other_head"
+        app:layout_constraintLeft_toRightOf="@+id/other_head"
+        app:layout_constraintTop_toTopOf="@+id/other_head"
+        tools:text="小店" />
+
+    <com.example.graduateproj.commonUI.SelectorImageView
+        android:id="@+id/other_star"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/star_icon_unselect"
+        app:checked="false"
+        app:layout_constraintBottom_toBottomOf="@+id/other_head"
+        app:layout_constraintRight_toRightOf="parent"
+        app:selector_src="@drawable/star_icon_select" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

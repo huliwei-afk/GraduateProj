@@ -159,9 +159,9 @@ class HomeFragment : Fragment() {
         }
 
         tabFragments.apply {
+            add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_STAGGERED))
             add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
             add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_GRID))
-            add(CommodityFragment.newInstance(RecyclerKind.RECYCLER_NORMAL))
         }
 
         homeTabFragmentViewPager.apply {
@@ -240,7 +240,7 @@ class HomeFragment : Fragment() {
         try {
             val field: Field = clazz.getDeclaredField("mScroller")
             field.isAccessible = true
-            //利用反射设置mScroller域为自己定义的MScroller
+            // 利用反射设置mScroller域为自己定义的MScroller
             field.set(homeBanner, betterBannerScroll)
         } catch (e: NoSuchFieldException) {
             e.printStackTrace()

@@ -12,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.SelectorImageView;
@@ -25,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.functions.Consumer;
 
-public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.ViewHolder> {
+public class OtherItemAdapter extends RecyclerView.Adapter<OtherItemAdapter.ViewHolder> {
 
     private final List<RecyclerBean.RecyclerItemBean> beanList;
     private final Activity context;
@@ -33,7 +36,7 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recyclerview_daily_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recyclerview_other_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -42,7 +45,8 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RecyclerBean.RecyclerItemBean itemBean = beanList.get(position);
 
-        Glide.with(context).load(itemBean.getSaleImage()).apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20, 20, 0, 0))).into(holder.saleImage);
+        // https://blog.csdn.net/LoveFHM/article/details/120318085 Glide加载圆角失效，与android:adjustViewBounds冲突
+        Glide.with(context).load(itemBean.getSaleImage()).apply(new RequestOptions().transform(new FitCenter(), new GranularRoundedCorners(20, 20, 0, 0))).into(holder.saleImage);
         Glide.with(context).load(itemBean.getUserHead()).into(holder.userHead);
 
         holder.userName.setText(itemBean.getUserName());
@@ -57,6 +61,7 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
     public int getItemCount() {
         return beanList == null ? 0 : beanList.size();
     }
+
     // 保证getAdapterPosition返回的数据正确
     @Override
     public int getItemViewType(int position) {
@@ -76,18 +81,18 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            saleImage = itemView.findViewById(R.id.daily_image);
-            userHead = itemView.findViewById(R.id.daily_head);
-            starIcon = itemView.findViewById(R.id.daily_star);
+            saleImage = itemView.findViewById(R.id.other_image);
+            userHead = itemView.findViewById(R.id.other_head);
+            starIcon = itemView.findViewById(R.id.other_star);
 
-            userName = itemView.findViewById(R.id.daily_name);
-            saleText = itemView.findViewById(R.id.daily_text);
-            salePrice = itemView.findViewById(R.id.daily_price);
-            whoWants = itemView.findViewById(R.id.daily_wants);
+            userName = itemView.findViewById(R.id.other_name);
+            saleText = itemView.findViewById(R.id.other_text);
+            salePrice = itemView.findViewById(R.id.other_price);
+            whoWants = itemView.findViewById(R.id.other_wants);
         }
     }
 
-    public DailyItemAdapter(Activity context, List<RecyclerBean.RecyclerItemBean> beanList) {
+    public OtherItemAdapter(Activity context, List<RecyclerBean.RecyclerItemBean> beanList) {
         this.context = context;
         this.beanList = beanList;
     }

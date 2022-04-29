@@ -80,6 +80,7 @@
         <entry key="app/src/main/res/layout/fragment_other.xml" value="0.25" />
         <entry key="app/src/main/res/layout/home_recyclerview_daily_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout/home_recyclerview_electric_item.xml" value="0.1956521739130435" />
+        <entry key="app/src/main/res/layout/home_recyclerview_other_item.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/me_fragment_notification_dialog.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/verify_code_dialog.xml" value="0.17018890380859375" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2046875" />
