@@ -1,12 +1,11 @@
 package com.example.graduateproj.mainPack.mePack.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.RoundCornerButton;

@@ -5,7 +5,6 @@ import com.example.graduateproj.commonUtil.RxOkHttpUtil
 import com.example.graduateproj.interfaceUtil.InterfacesHolder
 import com.example.graduateproj.mainPack.homePack.HomeFragment
 import com.example.graduateproj.mainPack.homePack.model.BannerImageBean
-import kotlin.concurrent.thread
 
 class HomePresenter(val view: HomeFragment) {
     companion object {

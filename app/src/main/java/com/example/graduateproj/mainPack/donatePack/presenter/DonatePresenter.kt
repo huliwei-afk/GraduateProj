@@ -1,9 +1,6 @@
 package com.example.graduateproj.mainPack.donatePack.presenter
 
 import android.util.Log
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
-import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.RxOkHttpUtil
 import com.example.graduateproj.interfaceUtil.InterfacesHolder
 import com.example.graduateproj.mainPack.donatePack.DonateFragment

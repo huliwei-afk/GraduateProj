@@ -8,15 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
-import com.example.graduateproj.db.AppDataBase
 import com.example.graduateproj.loginPack.presenter.LoginPresenter
-import com.wajahatkarim3.roomexplorer.RoomExplorer
 import java.util.concurrent.TimeUnit
-import kotlin.math.log
 
 
 /**

@@ -1,8 +1,6 @@
 package com.example.graduateproj.loginPack.presenter
 
 import android.content.Context
-import android.util.Log
-import com.example.graduateproj.db.AppDataBase
 import com.example.graduateproj.db.RoomManager
 import com.example.graduateproj.loginPack.db.LoginInfoEntity
 import com.example.graduateproj.loginPack.ui.LoginFragment

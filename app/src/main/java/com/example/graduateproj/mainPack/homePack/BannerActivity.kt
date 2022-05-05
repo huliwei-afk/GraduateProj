@@ -1,12 +1,10 @@
 package com.example.graduateproj.mainPack.homePack
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.graduateproj.R
-import android.content.Intent
 import android.widget.ImageView
-import com.example.graduateproj.mainPack.homePack.BannerActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.graduateproj.R
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
 import java.util.concurrent.TimeUnit

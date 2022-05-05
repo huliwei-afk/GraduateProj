@@ -13,7 +13,6 @@ import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.commonUtil.WindowBarStatusUtil
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
 import de.hdodenhof.circleimageview.CircleImageView
-import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
 class ItemActivity : AppCompatActivity() {

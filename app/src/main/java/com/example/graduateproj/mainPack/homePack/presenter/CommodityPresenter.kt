@@ -3,8 +3,6 @@ package com.example.graduateproj.mainPack.homePack.presenter
 import android.util.Log
 import com.example.graduateproj.commonUtil.RxOkHttpUtil
 import com.example.graduateproj.interfaceUtil.InterfacesHolder
-import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
-import com.example.graduateproj.mainPack.donatePack.presenter.DonatePresenter
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
 import com.example.graduateproj.mainPack.homePack.tabFragment.CommodityFragment
 import com.example.graduateproj.mainPack.homePack.tabFragment.RecyclerKind
