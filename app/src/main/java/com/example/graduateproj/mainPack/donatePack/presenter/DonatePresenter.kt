@@ -8,7 +8,7 @@ import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 
 class DonatePresenter(val view: DonateFragment) {
 
-    private var donateBeanList : MutableList<DonateJsonBean.DonateItemBean> = ArrayList()
+    private var donateBeanList: MutableList<DonateJsonBean.DonateItemBean> = ArrayList()
 
     companion object {
         private val TAG = DonatePresenter::class.java.simpleName
@@ -57,7 +57,10 @@ class DonatePresenter(val view: DonateFragment) {
             })
     }
 
-    private fun manipulateRecyclerView(originalList: MutableList<DonateJsonBean.DonateItemBean>, size: Int) {
+    private fun manipulateRecyclerView(
+        originalList: MutableList<DonateJsonBean.DonateItemBean>,
+        size: Int
+    ) {
         view.donateRecyclerView.adapter?.notifyItemRangeInserted(originalList.size - 1, size)
         view.donateRecyclerView.scheduleLayoutAnimation()
         view.donateRefresh.isRefreshing = false

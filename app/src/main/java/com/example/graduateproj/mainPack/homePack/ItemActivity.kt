@@ -11,6 +11,7 @@ import com.example.graduateproj.commonUI.RoundCornerButton
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.commonUtil.WindowBarStatusUtil
+import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.concurrent.TimeUnit
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit
 class ItemActivity : AppCompatActivity() {
 
     companion object {
-        private const val ITEM_OBJECT = "item"
+        private const val ITEM_OBJECT = "item_home"
     }
 
     private lateinit var backArrow: ImageView
@@ -67,16 +68,33 @@ class ItemActivity : AppCompatActivity() {
 
     private fun resolveIntent() {
         val intent = intent
-        val item = intent.getSerializableExtra(ITEM_OBJECT)
-        item?.let { it -> passIntentToViews(it as RecyclerBean.RecyclerItemBean) }
+        when(val item = intent.getSerializableExtra(ITEM_OBJECT)) {
+            is RecyclerBean.RecyclerItemBean -> {
+                passHomeIntentToViews(item)
+            }
+
+            is DonateJsonBean.DonateItemBean -> {
+                passDonateIntentToViews(item)
+            }
+        }
+
     }
 
-    private fun passIntentToViews(item: RecyclerBean.RecyclerItemBean) {
+    private fun passHomeIntentToViews(item: RecyclerBean.RecyclerItemBean) {
         Glide.with(this).load(item.userHead).into(sellerHead)
         Glide.with(this).load(item.saleImage).into(sellerImage)
         sellerName.text = item.userName
         sellerDescription.text = item.saleText
         sellerPrice.text = item.salePrice
         wantsCount.text = item.whoWants
+    }
+
+    private fun passDonateIntentToViews(item: DonateJsonBean.DonateItemBean) {
+        Glide.with(this).load(item.saleIcon).into(sellerHead)
+        Glide.with(this).load(item.saleImage).into(sellerImage)
+        sellerName.text = item.saleName
+        sellerDescription.text = item.saleText
+        sellerPrice.text = "¥ 0元"
+        wantsCount.visibility = View.GONE
     }
 }

@@ -107,7 +107,7 @@ public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapte
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Throwable {
-                        AppNavigator.INSTANCE.openItemActivity(context, beanList.get(holder.getAdapterPosition()));
+                        AppNavigator.INSTANCE.openItemActivityFromHome(context, beanList.get(holder.getAdapterPosition()));
                     }
                 });
     }

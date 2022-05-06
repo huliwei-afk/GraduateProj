@@ -148,6 +148,16 @@
     <string name="new_price_text">新的二手商品</string>
     <string name="new_free_text">新的赠送商品</string>
     <string name="item_contact_him">联系TA</string>
+    <string name="sale_good_input_name">请输入商品名称</string>
+    <string name="good_name_title">商品名称: </string>
+    <string name="good_price_title">商品价格: </string>
+    <string name="sale_good_input_price">请输入商品价格</string>
+    <string name="good_image_title">商品图片: </string>
+    <string name="good_description_title">商品描述: </string>
+    <string name="good_publish">发布</string>
+    <string name="publish_good_info">商品信息</string>
+    <string name="input_good_description">请输入商品描述</string>
+    <string name="zero_rmb">¥ 0元</string>
 
 
     <!-- Strings used for fragments for navigation -->

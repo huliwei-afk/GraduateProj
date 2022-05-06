@@ -1,5 +1,6 @@
 package com.example.graduateproj.mainPack.donatePack.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.SelectorImageView;
+import com.example.graduateproj.commonUtil.AppNavigator;
 import com.example.graduateproj.commonUtil.RxClickUtil;
 import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean;
 
@@ -24,7 +26,7 @@ import io.reactivex.rxjava3.functions.Consumer;
 public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.ViewHolder> {
 
     private final List<DonateJsonBean.DonateItemBean> beanList;
-    private final Context context;
+    private final Activity context;
 
     @NonNull
     @Override
@@ -43,12 +45,25 @@ public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.Vi
         Glide.with(context).load(itemBean.getSaleImage()).into(holder.saleImage);
         holder.saleText.setText(itemBean.getSaleText());
 
+        initEvents(holder);
+    }
+
+    private void initEvents(@NonNull ViewHolder holder) {
         RxClickUtil.INSTANCE.clickEvent(holder.starIcon, context)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Throwable {
                         holder.starIcon.toggle(!holder.starIcon.isChecked());
+                    }
+                });
+
+        RxClickUtil.INSTANCE.clickEvent(holder.itemView, context)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Throwable {
+                        AppNavigator.INSTANCE.openItemActivityFromDonate(context, beanList.get(holder.getAdapterPosition()));
                     }
                 });
     }
@@ -76,7 +91,7 @@ public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.Vi
         }
     }
 
-    public DonateItemAdapter(Context context, List<DonateJsonBean.DonateItemBean> beanList) {
+    public DonateItemAdapter(Activity context, List<DonateJsonBean.DonateItemBean> beanList) {
         this.context = context;
         this.beanList = beanList;
     }

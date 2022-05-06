@@ -1,5 +1,6 @@
 package com.example.graduateproj.loginPack.util
 
+import android.app.Activity
 import android.content.Context
 import android.view.Gravity
 import android.view.View
@@ -53,7 +54,7 @@ object DialogManager {
         dialog.show()
     }
 
-    fun showAddDonateDialog(@NonNull context: Context) {
+    fun showAddDonateDialog(@NonNull context: Activity) {
         val dialog = DonateDialog(context, R.style.verify_dialog)
         val view = View.inflate(context, R.layout.add_donate_dialog, null)
         dialog.setContentView(view)

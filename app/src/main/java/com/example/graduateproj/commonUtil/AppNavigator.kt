@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.graduateproj.R
 import com.example.graduateproj.loginPack.ui.MainLoginActivity
+import com.example.graduateproj.mainPack.donatePack.SaleInfoActivity
+import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.homePack.BannerActivity
 import com.example.graduateproj.mainPack.homePack.ItemActivity
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
@@ -19,7 +22,8 @@ import com.example.graduateproj.mainPack.mePack.ui.PreferActivity
 object AppNavigator {
 
     private const val BANNER_URL = "url"
-    private const val ITEM_OBJECT = "item"
+    private const val ITEM_OBJECT = "item_home"
+    private const val PUBLISH_KIND = "kind"
 
     fun openMainLoginActivity(context: Context) {
         val intent = Intent(context, MainLoginActivity::class.java)
@@ -71,9 +75,28 @@ object AppNavigator {
         context.startActivity(intent)
     }
 
-    fun openItemActivity(context: Activity, bean: RecyclerBean.RecyclerItemBean) {
+    fun openItemActivityFromHome(context: Activity, bean: RecyclerBean.RecyclerItemBean) {
         val intent = Intent(context, ItemActivity::class.java)
         intent.putExtra(ITEM_OBJECT, bean)
+        context.startActivity(intent)
+    }
+
+    fun openItemActivityFromDonate(context: Activity, bean: DonateJsonBean.DonateItemBean) {
+        val intent = Intent(context, ItemActivity::class.java)
+        intent.putExtra(ITEM_OBJECT, bean)
+        context.startActivity(intent)
+    }
+
+    fun openSaleInfoActivity(context: Activity, kind: Int) {
+        val intent = Intent(context, SaleInfoActivity::class.java)
+        val bundle = Bundle()
+        bundle.putInt(PUBLISH_KIND, kind)
+        intent.putExtras(bundle)
+        context.startActivity(intent)
+    }
+
+    fun backToMainContentActivityWithParam(context: Activity) {
+        val intent = Intent(context, MainContentActivity::class.java)
         context.startActivity(intent)
     }
 }

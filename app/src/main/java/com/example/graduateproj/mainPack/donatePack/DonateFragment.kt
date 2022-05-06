@@ -72,7 +72,7 @@ class DonateFragment : Fragment() {
             RxClickUtil.clickEvent(donateButton, it)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    DialogManager.showAddDonateDialog(requireContext())
+                    DialogManager.showAddDonateDialog(requireActivity())
                 }
         }
     }
@@ -87,7 +87,7 @@ class DonateFragment : Fragment() {
                     R.anim.donate_recycler_animation
                 )
             )
-            adapter = context?.let { DonateItemAdapter(it, donateBeanList) }
+            adapter = context?.let { DonateItemAdapter(requireActivity(), donateBeanList) }
         }
     }
 

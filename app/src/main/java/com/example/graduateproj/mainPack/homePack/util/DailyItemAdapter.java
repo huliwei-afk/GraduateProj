@@ -107,7 +107,7 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Throwable {
-                        AppNavigator.INSTANCE.openItemActivity(context, beanList.get(holder.getAdapterPosition()));
+                        AppNavigator.INSTANCE.openItemActivityFromHome(context, beanList.get(holder.getAdapterPosition()));
                     }
                 });
     }

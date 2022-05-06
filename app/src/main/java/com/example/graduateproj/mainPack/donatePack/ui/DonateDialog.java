@@ -1,5 +1,6 @@
 package com.example.graduateproj.mainPack.donatePack.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -10,7 +11,10 @@ import androidx.annotation.Nullable;
 
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.CommonMoveDownDialog;
+import com.example.graduateproj.commonUtil.AppNavigator;
 import com.example.graduateproj.commonUtil.RxClickUtil;
+import com.example.graduateproj.mainPack.donatePack.presenter.DonatePresenter;
+import com.example.graduateproj.mainPack.donatePack.util.PublishKind;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,15 +22,18 @@ import io.reactivex.rxjava3.functions.Consumer;
 
 public class DonateDialog extends CommonMoveDownDialog {
 
-    public DonateDialog(@NonNull Context context) {
+    private Activity context;
+
+    public DonateDialog(@NonNull Activity context) {
         super(context);
     }
 
-    public DonateDialog(@NonNull Context context, int themeResId) {
+    public DonateDialog(@NonNull Activity context, int themeResId) {
         super(context, themeResId);
+        this.context = context;
     }
 
-    protected DonateDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+    protected DonateDialog(@NonNull Activity context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -45,6 +52,20 @@ public class DonateDialog extends CommonMoveDownDialog {
         RxClickUtil.INSTANCE.clickEvent(dismissIcon, getContext())
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe((Consumer<Object>) o -> {
+                    dismiss();
+                });
+
+        RxClickUtil.INSTANCE.clickEvent(freeRelative, getContext())
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe((Consumer<Object>) o -> {
+                    AppNavigator.INSTANCE.openSaleInfoActivity(context, PublishKind.FREE);
+                    dismiss();
+                });
+
+        RxClickUtil.INSTANCE.clickEvent(priceRelative, getContext())
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe((Consumer<Object>) o -> {
+                    AppNavigator.INSTANCE.openSaleInfoActivity(context, PublishKind.PRICE);
                     dismiss();
                 });
     }
