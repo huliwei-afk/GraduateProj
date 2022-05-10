@@ -61,7 +61,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -119,5 +120,21 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.example.graduateproj.commonUI.RoundCornerButton
+        android:id="@+id/item_action_button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        tools:text="点击购买 / 向他索要"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:rcb_backgroundColorNormal="@color/main_18CAE4"
+        app:rcb_backgroundColorPressed="@color/main_6618CAE4"
+        app:rcb_cornerRadius="50dp" />
 
 </LinearLayout>

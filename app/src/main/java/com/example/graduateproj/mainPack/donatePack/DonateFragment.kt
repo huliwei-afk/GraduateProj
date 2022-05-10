@@ -1,6 +1,8 @@
 package com.example.graduateproj.mainPack.donatePack
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.graduateproj.R
+import com.example.graduateproj.commonUtil.RxBus
 import com.example.graduateproj.commonUtil.RxClickUtil
 import com.example.graduateproj.databinding.FragmentDonateBinding
 import com.example.graduateproj.loginPack.util.DialogManager
@@ -19,9 +22,14 @@ import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.donatePack.presenter.DonatePresenter
 import com.example.graduateproj.mainPack.donatePack.util.DonateItemAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
 class DonateFragment : Fragment() {
+
+    companion object {
+        private const val TAG = "DonateFragment"
+    }
 
     private var _binding: FragmentDonateBinding? = null
     private var donateBeanList: MutableList<DonateJsonBean.DonateItemBean> = ArrayList()
@@ -33,23 +41,6 @@ class DonateFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val donateViewModel =
-            ViewModelProvider(this).get(DonateViewModel::class.java)
-
-        _binding = FragmentDonateBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        initViews(root)
-        initEvents()
-
-        return root
-    }
 
     private fun initViews(root: View) {
         donateRecyclerView = root.findViewById(R.id.donate_recyclerview)
@@ -91,12 +82,75 @@ class DonateFragment : Fragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d(TAG, "onAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        Log.d(TAG, "onCreateView")
+
+        val donateViewModel =
+            ViewModelProvider(this).get(DonateViewModel::class.java)
+
+        _binding = FragmentDonateBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        initViews(root)
+        initEvents()
+
+        RxBus.getInstance().toObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                donateBeanList.add(it as DonateJsonBean.DonateItemBean)
+                // TODO
+            }
+        return root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         donatePresenter.getDonateItemAndSet()
+        Log.d(TAG, "onViewCreated")
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d(TAG, "onActivityCreated")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop")
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d(TAG, "onDestroyView")
         _binding = null
     }
+
 }

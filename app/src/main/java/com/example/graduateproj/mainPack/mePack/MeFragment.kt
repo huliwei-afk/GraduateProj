@@ -1,8 +1,10 @@
 package com.example.graduateproj.mainPack.mePack
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,9 +39,11 @@ import com.example.graduateproj.R
 import com.example.graduateproj.commonUI.RoundCornerButton
 import com.example.graduateproj.commonUtil.AppNavigator
 import com.example.graduateproj.commonUtil.RxClickUtil
+import com.example.graduateproj.databinding.FragmentHomeBinding
 import com.example.graduateproj.databinding.FragmentMeBinding
 import com.example.graduateproj.loginPack.util.DialogManager
 import com.example.graduateproj.loginPack.util.LoginStateUtil
+import com.example.graduateproj.mainPack.homePack.HomeViewModel
 import com.example.graduateproj.mainPack.mePack.presenter.MePresenter
 import com.example.graduateproj.mainPack.mePack.util.DetailStateUtil
 import com.example.graduateproj.mainPack.mePack.util.MeCalendarUtil
@@ -48,6 +52,10 @@ import java.util.concurrent.TimeUnit
 
 
 class MeFragment : Fragment() {
+
+    companion object {
+        private const val TAG = "MeFragment"
+    }
 
     private var _binding: FragmentMeBinding? = null
 
@@ -179,6 +187,16 @@ class MeFragment : Fragment() {
         }.start()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d(TAG, "onAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -213,13 +231,40 @@ class MeFragment : Fragment() {
 //        }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "onViewCreated")
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d(TAG, "onActivityCreated")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart")
+    }
+
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume")
         initPersonalInfo()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d(TAG, "onDestroyView")
         _binding = null
     }
 }

@@ -22,8 +22,9 @@ import com.example.graduateproj.mainPack.mePack.ui.PreferActivity
 object AppNavigator {
 
     private const val BANNER_URL = "url"
-    private const val ITEM_OBJECT = "item_home"
+    private const val ITEM_OBJECT = "item"
     private const val PUBLISH_KIND = "kind"
+    private const val BACK_ITEM = "back"
 
     fun openMainLoginActivity(context: Context) {
         val intent = Intent(context, MainLoginActivity::class.java)
@@ -92,11 +93,6 @@ object AppNavigator {
         val bundle = Bundle()
         bundle.putInt(PUBLISH_KIND, kind)
         intent.putExtras(bundle)
-        context.startActivity(intent)
-    }
-
-    fun backToMainContentActivityWithParam(context: Activity) {
-        val intent = Intent(context, MainContentActivity::class.java)
         context.startActivity(intent)
     }
 }

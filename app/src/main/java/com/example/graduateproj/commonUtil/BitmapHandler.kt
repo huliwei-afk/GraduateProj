@@ -11,7 +11,7 @@ object BitmapHandler {
 
     //压缩图片像素
     @Throws(FileNotFoundException::class, IOException::class)
-    fun getBitmapFormUri(uri: Uri?, context: Context?): Bitmap? {
+    fun getBitmapFromUri(uri: Uri?, context: Context?): Bitmap? {
         var input: InputStream? = uri?.let { context?.contentResolver?.openInputStream(it) }
 
         //这一段代码是不加载文件到内存中也得到bitmap的真是宽高，主要是设置inJustDecodeBounds为true

@@ -2,6 +2,7 @@ package com.example.graduateproj.mainPack.homePack
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -40,6 +41,7 @@ class HomeFragment : Fragment() {
         private const val tabElectric = "电子产品"
         private const val tabDaily = "日用品"
         private const val tabOther = "其他"
+        private const val TAG = "HomeFragment"
     }
 
     private val TAG = HomeFragment::class.java.simpleName
@@ -251,11 +253,23 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d(TAG, "onAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(TAG, "onCreateView")
+
         val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -274,21 +288,39 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         homePresenter.getBannerImageDataAndSet()
+        Log.d(TAG, "onViewCreated")
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d(TAG, "onActivityCreated")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume")
         executeTimerTask()
     }
 
     override fun onPause() {
         super.onPause()
+        Log.d(TAG, "onPause")
         clearAllTimerTask()
     }
 
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop")
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d(TAG, "onDestroyView")
         _binding = null
     }
 }

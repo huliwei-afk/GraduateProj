@@ -14,6 +14,9 @@ public class DetailStateUtil {
     private static final String QQ_NUMBER = "QQNumber";
     private static final String INSTITUTE = "Institute";
 
+    private static final String DEFAULT_NAME = "student";
+    private static final String DEFAULT_SIGN = "说说最近的生活状态吧";
+
     private static DetailStateUtil INSTANCE;
 
     private DetailStateUtil(Context context) {
@@ -35,7 +38,7 @@ public class DetailStateUtil {
     }
 
     public String getLocalSelfNameOrDefault() {
-        return sharedPreferences.getString(SELF_NAME, "");
+        return sharedPreferences.getString(SELF_NAME, DEFAULT_NAME);
     }
 
     // Sign
@@ -45,7 +48,7 @@ public class DetailStateUtil {
     }
 
     public String getLocalSignOrDefault() {
-        return sharedPreferences.getString(CUS_SIGN, "");
+        return sharedPreferences.getString(CUS_SIGN, DEFAULT_SIGN);
     }
 
     // PhoneNum

@@ -19,7 +19,9 @@ import java.util.concurrent.TimeUnit
 class ItemActivity : AppCompatActivity() {
 
     companion object {
-        private const val ITEM_OBJECT = "item_home"
+        private const val ITEM_OBJECT = "item"
+        private const val PURCHASE = "点击购买"
+        private const val ASK_FOR = "向TA索要"
     }
 
     private lateinit var backArrow: ImageView
@@ -30,6 +32,7 @@ class ItemActivity : AppCompatActivity() {
     private lateinit var sellerDescription: TextView
     private lateinit var sellerPrice: TextView
     private lateinit var wantsCount: TextView
+    private lateinit var actionButton: RoundCornerButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,7 @@ class ItemActivity : AppCompatActivity() {
         sellerDescription = findViewById(R.id.seller_description)
         sellerPrice = findViewById(R.id.seller_price)
         wantsCount = findViewById(R.id.wants_count)
+        actionButton = findViewById(R.id.item_action_button)
     }
 
     private fun initEvents() {
@@ -63,6 +67,14 @@ class ItemActivity : AppCompatActivity() {
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
 
+            }
+
+        RxClickUtil.clickEvent(actionButton, this)
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                if(actionButton.text == PURCHASE) {
+
+                }
             }
     }
 
@@ -87,6 +99,8 @@ class ItemActivity : AppCompatActivity() {
         sellerDescription.text = item.saleText
         sellerPrice.text = item.salePrice
         wantsCount.text = item.whoWants
+
+        actionButton.text = PURCHASE
     }
 
     private fun passDonateIntentToViews(item: DonateJsonBean.DonateItemBean) {
@@ -96,5 +110,7 @@ class ItemActivity : AppCompatActivity() {
         sellerDescription.text = item.saleText
         sellerPrice.text = "¥ 0元"
         wantsCount.visibility = View.GONE
+
+        actionButton.text = ASK_FOR
     }
 }

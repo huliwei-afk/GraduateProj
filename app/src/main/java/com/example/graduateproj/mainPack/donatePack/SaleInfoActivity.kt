@@ -11,8 +11,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUI.RoundCornerButton
 import com.example.graduateproj.commonUtil.*
+import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.donatePack.presenter.SaleInfoPresenter
 import com.example.graduateproj.mainPack.donatePack.util.PublishKind
+import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
+import com.example.graduateproj.mainPack.homePack.model.RecyclerBean.RecyclerItemBean
+import com.example.graduateproj.mainPack.mePack.util.DetailStateUtil
 import java.util.concurrent.TimeUnit
 
 class SaleInfoActivity : AppCompatActivity() {
@@ -25,7 +29,7 @@ class SaleInfoActivity : AppCompatActivity() {
     private lateinit var arrowBack: ImageView
     internal lateinit var editName: EditText
     internal lateinit var editPrice: EditText
-    private lateinit var editImage: ImageView
+    internal lateinit var editImage: ImageView
     internal lateinit var editDescription: EditText
     private lateinit var publishButton: RoundCornerButton
 
@@ -34,6 +38,8 @@ class SaleInfoActivity : AppCompatActivity() {
     private lateinit var rootView: ConstraintLayout
 
     private lateinit var saleInfoPresenter: SaleInfoPresenter
+
+    private var kind: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,9 +84,11 @@ class SaleInfoActivity : AppCompatActivity() {
             rootView.addView(priceTitle)
         }
 
-        when (intent.extras?.getInt(PUBLISH_KIND)) {
+        kind = intent.extras?.getInt(PUBLISH_KIND)
+
+        when (kind) {
             PublishKind.FREE -> {
-                if(zeroRmb.visibility == View.GONE) {
+                if (zeroRmb.visibility == View.GONE) {
                     zeroRmb.visibility = View.VISIBLE
                     inputPrice.visibility = View.GONE
                 }
@@ -88,7 +96,7 @@ class SaleInfoActivity : AppCompatActivity() {
             }
 
             PublishKind.PRICE -> {
-                if(inputPrice.visibility == View.GONE) {
+                if (inputPrice.visibility == View.GONE) {
                     inputPrice.visibility = View.VISIBLE
                     zeroRmb.visibility = View.GONE
                 }
@@ -104,10 +112,38 @@ class SaleInfoActivity : AppCompatActivity() {
                 AppNavigator.backToMainContentActivity(this@SaleInfoActivity)
             }
 
+        RxClickUtil.clickEvent(editImage, this)
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                saleInfoPresenter.requestPermissionAndTryOpen()
+            }
+
         RxClickUtil.clickEvent(publishButton, this)
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                saleInfoPresenter.checkInfoComplete()
+                if (saleInfoPresenter.checkInfoComplete()) {
+                    when (kind) {
+                        PublishKind.FREE -> {
+                            val item = DonateJsonBean.DonateItemBean(
+                                saleText = editDescription.text.toString(),
+                                saleImage = saleInfoPresenter.getImageUri().toString(),
+                                saleName = DetailStateUtil.getInstance(this).localSelfNameOrDefault,
+                                saleIcon = saleInfoPresenter.getMeHead()?.toString()
+                            )
+
+                            RxBus.getInstance().post(item)
+                        }
+
+                        PublishKind.PRICE -> {
+//                            saleText = editDescription.text.toString(),
+//                            saleImage = saleInfoPresenter.getImageUri().toString(),
+//                            salePrice = "¥ 0元",
+//                            whoWants = "",
+//                            userName = DetailStateUtil.getInstance(this).localSelfNameOrDefault,
+//                            userHead = saleInfoPresenter.getMeHead()?.toString()
+                        }
+                    }
+                }
             }
     }
 }

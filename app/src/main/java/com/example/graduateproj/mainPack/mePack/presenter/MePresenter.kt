@@ -58,7 +58,7 @@ class MePresenter(val view: MeFragment) {
         val uri = result.data?.data
         var bm: Bitmap? = null
         if (uri != null) {
-            try { bm = BitmapHandler.getBitmapFormUri(uri, view.requireContext()) }
+            try { bm = BitmapHandler.getBitmapFromUri(uri, view.requireContext()) }
             catch (e: FileNotFoundException) { }
             catch (e: IOException) { }
         } else {

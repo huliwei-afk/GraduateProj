@@ -122,5 +122,6 @@ dependencies {
     implementation 'com.wajahatkarim:roomexplorer:1.0.1'
     //annotationProcessor("androidx.room:room-compiler:2.4.1")
 
-
+    // alipay
+    api 'com.alipay.sdk:alipaysdk-android:+@aar'
 }
