@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.graduateproj.R
+import com.example.graduateproj.commonUtil.RxBus
+import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean.RecyclerItemBean
 import com.example.graduateproj.mainPack.homePack.presenter.CommodityPresenter
 import com.example.graduateproj.mainPack.homePack.util.*
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
 /**
  * A simple [Fragment] subclass.
@@ -63,6 +66,8 @@ class CommodityFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_commodity, container, false)
         initViews(view)
         initEvents()
+        initRxBus()
+
         return view
     }
 
@@ -82,11 +87,22 @@ class CommodityFragment : Fragment() {
     private fun initEvents() {
         swipeRefreshLayout.setOnRefreshListener {
             when(kind) {
-                RecyclerKind.RECYCLER_NORMAL -> commodityPresenter.getMoreItem(electricItemBeanList)
-                RecyclerKind.RECYCLER_GRID -> commodityPresenter.getMoreItem(dailyItemBeanList)
-                RecyclerKind.RECYCLER_STAGGERED -> commodityPresenter.getMoreItem(otherItemBeanList)
+                RecyclerKind.RECYCLER_STAGGERED -> commodityPresenter.getMoreItem(electricItemBeanList)
+                RecyclerKind.RECYCLER_NORMAL -> commodityPresenter.getMoreItem(dailyItemBeanList)
+                RecyclerKind.RECYCLER_GRID -> commodityPresenter.getMoreItem(otherItemBeanList)
             }
         }
+    }
+
+    private fun initRxBus() {
+        RxBus.getInstance().toObservable(RecyclerItemBean::class.java).observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                when (it.kind) {
+                    HomeItemKind.ELECTRIC -> commodityPresenter.insertNewHomeItem(it, electricItemBeanList)
+                    HomeItemKind.DAILY -> commodityPresenter.insertNewHomeItem(it, dailyItemBeanList)
+                    HomeItemKind.OTHER -> commodityPresenter.insertNewHomeItem(it, otherItemBeanList)
+                }
+            }
     }
 
     fun initRecyclerViewForElectric(list: List<RecyclerItemBean>) {

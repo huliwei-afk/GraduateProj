@@ -116,7 +116,7 @@
     <RelativeLayout
         android:id="@+id/good_description"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -146,9 +146,116 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/good_description"
+        app:layout_constraintTop_toBottomOf="@+id/kind_checkbox"
         app:rcb_backgroundColorNormal="@color/main_18CAE4"
         app:rcb_backgroundColorPressed="@color/main_6618CAE4"
         app:rcb_cornerRadius="50dp" />
+
+    <TextView
+        android:id="@+id/good_kind_title"
+        style="@style/SaleInfoTitleTextView"
+        android:text="@string/sale_info_good_kind"
+        app:layout_constraintBottom_toBottomOf="@+id/kind_checkbox"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/kind_checkbox" />
+
+    <LinearLayout
+        android:id="@+id/kind_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@+id/good_kind_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/good_description">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/electric_check"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:theme="@style/login_checkBox" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/electric_check"
+                android:gravity="center"
+                android:text="@string/sale_info_kind_electric"
+                android:textColor="@color/login_black"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/daily_check"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:theme="@style/login_checkBox" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/daily_check"
+                android:gravity="center"
+                android:text="@string/sale_info_kind_daily"
+                android:textColor="@color/login_black"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/other_check"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:theme="@style/login_checkBox" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/other_check"
+                android:gravity="center"
+                android:text="@string/sale_info_kind_other"
+                android:textColor="@color/login_black"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ data class RecyclerBean(val data: List<RecyclerItemBean>) : Serializable {
         val salePrice: String?,
         val whoWants: String?,
         val userName: String?,
-        val userHead: String?
+        val userHead: String?,
+        val kind: Int?
     ) : Serializable
 }

@@ -43,11 +43,11 @@ class DonatePresenter(val view: DonateFragment) {
                     var size = 0
                     dataList?.let {
                         for (bean in dataList.data) {
-                            originalList.add(bean)
+                            originalList.add(size, bean)
                             size++
                         }
                     }
-                    manipulateRecyclerView(originalList, size)
+                    manipulateRecyclerView(size)
                 }
 
                 override fun onFailure(e: Throwable?) {
@@ -57,12 +57,16 @@ class DonatePresenter(val view: DonateFragment) {
             })
     }
 
-    private fun manipulateRecyclerView(
-        originalList: MutableList<DonateJsonBean.DonateItemBean>,
-        size: Int
-    ) {
-        view.donateRecyclerView.adapter?.notifyItemRangeInserted(originalList.size - 1, size)
+    private fun manipulateRecyclerView(size: Int) {
+        view.donateRecyclerView.adapter?.notifyItemRangeInserted(0, size)
+        view.donateRecyclerView.scrollToPosition(0)
         view.donateRecyclerView.scheduleLayoutAnimation()
         view.donateRefresh.isRefreshing = false
+    }
+
+    fun insertNewDonateItem(bean: DonateJsonBean.DonateItemBean, originalList: MutableList<DonateJsonBean.DonateItemBean>) {
+        originalList.add(0, bean)
+        view.donateRecyclerView.adapter?.notifyItemInserted(0)
+        view.donateRecyclerView.scrollToPosition(0)
     }
 }

@@ -40,7 +40,11 @@ public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DonateJsonBean.DonateItemBean itemBean = beanList.get(position);
 
-        Glide.with(context).load(itemBean.getSaleIcon()).into(holder.saleIcon);
+        if (itemBean.getSaleIcon() == null) {
+            Glide.with(context).load(R.drawable.ic_launcher_background).into(holder.saleIcon);
+        } else {
+            Glide.with(context).load(itemBean.getSaleIcon()).into(holder.saleIcon);
+        }
         holder.saleName.setText(itemBean.getSaleName());
         Glide.with(context).load(itemBean.getSaleImage()).into(holder.saleImage);
         holder.saleText.setText(itemBean.getSaleText());

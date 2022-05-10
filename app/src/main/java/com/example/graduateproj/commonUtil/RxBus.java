@@ -2,8 +2,6 @@ package com.example.graduateproj.commonUtil;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
-import io.reactivex.rxjava3.subjects.Subject;
-import io.reactivex.rxjava3.subscribers.SerializedSubscriber;
 
 public class RxBus {
     private static volatile RxBus sInstance;

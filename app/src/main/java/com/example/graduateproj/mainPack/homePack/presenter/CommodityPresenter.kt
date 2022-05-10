@@ -30,9 +30,9 @@ class CommodityPresenter(val view: CommodityFragment) {
                             otherBeanList.add(bean)
                         }
                         when(kind) {
-                            RecyclerKind.RECYCLER_NORMAL -> view.initRecyclerViewForElectric(electricBeanList)
-                            RecyclerKind.RECYCLER_GRID -> view.initRecyclerViewForDaily(dailyBeanList)
-                            RecyclerKind.RECYCLER_STAGGERED -> view.initRecyclerViewForOther(otherBeanList)
+                            RecyclerKind.RECYCLER_NORMAL -> view.initRecyclerViewForDaily(dailyBeanList)
+                            RecyclerKind.RECYCLER_GRID -> view.initRecyclerViewForOther(otherBeanList)
+                            RecyclerKind.RECYCLER_STAGGERED -> view.initRecyclerViewForElectric(electricBeanList)
                         }
                     }
                 }
@@ -52,11 +52,11 @@ class CommodityPresenter(val view: CommodityFragment) {
                     var size = 0
                     dataList?.let {
                         for (bean in dataList.data) {
-                            originalList.add(bean)
+                            originalList.add(size, bean)
                             size++
                         }
                     }
-                    manipulateRecyclerView(originalList, size)
+                    manipulateRecyclerView(size)
                 }
 
                 override fun onFailure(e: Throwable?) {
@@ -66,10 +66,17 @@ class CommodityPresenter(val view: CommodityFragment) {
             })
     }
 
-    private fun manipulateRecyclerView(originalList: MutableList<RecyclerBean.RecyclerItemBean>, size: Int) {
-        view.recyclerView.adapter?.notifyItemRangeInserted(originalList.size - 1, size)
+    private fun manipulateRecyclerView(size: Int) {
+        view.recyclerView.adapter?.notifyItemRangeInserted(0, size)
+        view.recyclerView.scrollToPosition(0)
         view.recyclerView.scheduleLayoutAnimation()
         view.swipeRefreshLayout.isRefreshing = false
+    }
+
+    fun insertNewHomeItem(bean: RecyclerBean.RecyclerItemBean, originalList: MutableList<RecyclerBean.RecyclerItemBean>) {
+        originalList.add(0, bean)
+        view.recyclerView.adapter?.notifyItemInserted(0)
+        view.recyclerView.scrollToPosition(0)
     }
 
 }

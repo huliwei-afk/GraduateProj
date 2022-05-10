@@ -2,10 +2,7 @@ package com.example.graduateproj.mainPack.donatePack
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.graduateproj.R
@@ -15,11 +12,11 @@ import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.donatePack.presenter.SaleInfoPresenter
 import com.example.graduateproj.mainPack.donatePack.util.PublishKind
 import com.example.graduateproj.mainPack.homePack.model.RecyclerBean
-import com.example.graduateproj.mainPack.homePack.model.RecyclerBean.RecyclerItemBean
+import com.example.graduateproj.mainPack.homePack.tabFragment.HomeItemKind
 import com.example.graduateproj.mainPack.mePack.util.DetailStateUtil
 import java.util.concurrent.TimeUnit
 
-class SaleInfoActivity : AppCompatActivity() {
+class SaleInfoActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
 
     companion object {
         private const val PUBLISH_KIND = "kind"
@@ -38,6 +35,10 @@ class SaleInfoActivity : AppCompatActivity() {
     private lateinit var rootView: ConstraintLayout
 
     private lateinit var saleInfoPresenter: SaleInfoPresenter
+
+    internal lateinit var checkBoxElectric: CheckBox
+    internal lateinit var checkBoxDaily: CheckBox
+    internal lateinit var checkBoxOther: CheckBox
 
     private var kind: Int? = null
 
@@ -62,6 +63,10 @@ class SaleInfoActivity : AppCompatActivity() {
         inputPrice = findViewById(R.id.input_good_price)
         zeroRmb = findViewById(R.id.zero_rmb)
         rootView = findViewById(R.id.view_container)
+
+        checkBoxElectric = findViewById(R.id.electric_check)
+        checkBoxDaily = findViewById(R.id.daily_check)
+        checkBoxOther = findViewById(R.id.other_check)
 
         saleInfoPresenter = SaleInfoPresenter(this)
     }
@@ -106,6 +111,10 @@ class SaleInfoActivity : AppCompatActivity() {
     }
 
     private fun initEvents() {
+        checkBoxElectric.setOnCheckedChangeListener(this)
+        checkBoxDaily.setOnCheckedChangeListener(this)
+        checkBoxOther.setOnCheckedChangeListener(this)
+
         RxClickUtil.clickEvent(arrowBack, this)
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
@@ -135,15 +144,51 @@ class SaleInfoActivity : AppCompatActivity() {
                         }
 
                         PublishKind.PRICE -> {
-//                            saleText = editDescription.text.toString(),
-//                            saleImage = saleInfoPresenter.getImageUri().toString(),
-//                            salePrice = "¥ 0元",
-//                            whoWants = "",
-//                            userName = DetailStateUtil.getInstance(this).localSelfNameOrDefault,
-//                            userHead = saleInfoPresenter.getMeHead()?.toString()
+                            val item = RecyclerBean.RecyclerItemBean(
+                                saleText = editDescription.text.toString(),
+                                saleImage = saleInfoPresenter.getImageUri().toString(),
+                                salePrice = "¥${editPrice.text}元",
+                                whoWants = "0人想要",
+                                userName = DetailStateUtil.getInstance(this).localSelfNameOrDefault,
+                                userHead = saleInfoPresenter.getMeHead()?.toString(),
+                                kind = getKind()
+                            )
+
+                            RxBus.getInstance().post(item)
                         }
                     }
                 }
             }
+    }
+
+    private fun getKind(): Int {
+        return if (checkBoxElectric.isChecked) HomeItemKind.ELECTRIC
+        else if (checkBoxDaily.isChecked) HomeItemKind.DAILY
+        else HomeItemKind.OTHER
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        when (buttonView?.id) {
+            R.id.electric_check -> {
+                if (checkBoxElectric.isChecked) {
+                    checkBoxDaily.isChecked = false
+                    checkBoxOther.isChecked = false
+                }
+            }
+
+            R.id.daily_check -> {
+                if (checkBoxDaily.isChecked) {
+                    checkBoxElectric.isChecked = false
+                    checkBoxOther.isChecked = false
+                }
+            }
+
+            R.id.other_check -> {
+                if (checkBoxOther.isChecked) {
+                    checkBoxElectric.isChecked = false
+                    checkBoxDaily.isChecked = false
+                }
+            }
+        }
     }
 }

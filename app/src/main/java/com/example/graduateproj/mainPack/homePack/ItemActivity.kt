@@ -104,7 +104,11 @@ class ItemActivity : AppCompatActivity() {
     }
 
     private fun passDonateIntentToViews(item: DonateJsonBean.DonateItemBean) {
-        Glide.with(this).load(item.saleIcon).into(sellerHead)
+        if (item.saleIcon == null) {
+            Glide.with(this).load(R.drawable.ic_launcher_background).into(sellerHead)
+        } else {
+            Glide.with(this).load(item.saleIcon).into(sellerHead)
+        }
         Glide.with(this).load(item.saleImage).into(sellerImage)
         sellerName.text = item.saleName
         sellerDescription.text = item.saleText

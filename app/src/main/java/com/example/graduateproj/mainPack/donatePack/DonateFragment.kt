@@ -82,6 +82,13 @@ class DonateFragment : Fragment() {
         }
     }
 
+    private fun initRxBus() {
+        RxBus.getInstance().toObservable(DonateJsonBean.DonateItemBean::class.java).observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                donatePresenter.insertNewDonateItem(it, donateBeanList)
+            }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.d(TAG, "onAttach")
@@ -107,12 +114,8 @@ class DonateFragment : Fragment() {
 
         initViews(root)
         initEvents()
+        initRxBus()
 
-        RxBus.getInstance().toObservable().observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                donateBeanList.add(it as DonateJsonBean.DonateItemBean)
-                // TODO
-            }
         return root
     }
 
