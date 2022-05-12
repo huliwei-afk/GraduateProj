@@ -36,6 +36,7 @@ class MainContentActivity : AppCompatActivity() {
 
         binding = ActivityMainContentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        WindowBarStatusUtil.setBarStatus(this, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
 
         initViews()
         initRadioGroup()
@@ -57,14 +58,12 @@ class MainContentActivity : AppCompatActivity() {
             color = resources.getColorStateList(R.color.main_18CAE4)
         }
         radioGroup.background = gradientDrawable
-        radioGroup.elevation
     }
 
     private fun initRadioGroup() {
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radio_button_home -> {
-                    WindowBarStatusUtil.setBarStatus(this, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
                     WindowBarStatusUtil.initBar(this, resources.getColor(R.color.login_white), 1)
                     mainViewPager.setCurrentItem(0, false)
                     showClickAnim(radioButtonForHome)

@@ -24,7 +24,6 @@ object AppNavigator {
     private const val BANNER_URL = "url"
     private const val ITEM_OBJECT = "item"
     private const val PUBLISH_KIND = "kind"
-    private const val BACK_ITEM = "back"
 
     fun openMainLoginActivity(context: Context) {
         val intent = Intent(context, MainLoginActivity::class.java)

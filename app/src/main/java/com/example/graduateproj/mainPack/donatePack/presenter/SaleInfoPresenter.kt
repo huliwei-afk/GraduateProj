@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.VectorDrawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.text.TextUtils
@@ -29,7 +30,6 @@ class SaleInfoPresenter(val view: SaleInfoActivity) {
         private const val IMAGE_EMPTY_HINT = "好像商品还没有图片噢!"
         private const val DESCRIPTION_EMPTY_HINT = "好像商品还没有描述噢!"
         private const val KIND_EMPTY_HINT = "好像商品还没有种类噢!"
-        private const val ALL_FULL = "发布成功! 快去看看自己的商品吧!"
 
         private const val NO_RIGHT_OPEN_ALBUM = "没有权限无法打开相册噢"
         private const val ALBUM_NOT_EXISTS = "您的手机没有手机相册噢"
@@ -46,41 +46,38 @@ class SaleInfoPresenter(val view: SaleInfoActivity) {
         }
 
         val nameEmpty = isEditTextEmpty(view.editName)
-        val priceEmpty = if (view.inputPrice.visibility == View.GONE) false else isEditTextEmpty(view.editPrice)
-        val imageEmpty = (view.editImage.drawable as BitmapDrawable).bitmap == null
-        val descriptionEmpty = isEditTextEmpty(view.editDescription)
-
-        val electricCheck = view.checkBoxElectric.isChecked
-        val dailyCheck = view.checkBoxDaily.isChecked
-        val otherCheck = view.checkBoxOther.isChecked
-        val checkBoxEmpty = if (view.inputPrice.visibility == View.GONE) false else !electricCheck && !dailyCheck && !otherCheck
-
         if (nameEmpty) {
             ToastUtil.showToastBottom(view, NAME_EMPTY_HINT)
             return false
         }
 
+        val priceEmpty = if (view.inputPrice.visibility == View.GONE) false else isEditTextEmpty(view.editPrice)
         if (priceEmpty) {
             ToastUtil.showToastBottom(view, PRICE_EMPTY_HINT)
             return false
         }
 
+        val imageEmpty = (view.editImage.drawable) is VectorDrawable
         if (imageEmpty) {
             ToastUtil.showToastBottom(view, IMAGE_EMPTY_HINT)
             return false
         }
 
+        val descriptionEmpty = isEditTextEmpty(view.editDescription)
         if (descriptionEmpty) {
             ToastUtil.showToastBottom(view, DESCRIPTION_EMPTY_HINT)
             return false
         }
 
+        val electricCheck = view.checkBoxElectric.isChecked
+        val dailyCheck = view.checkBoxDaily.isChecked
+        val otherCheck = view.checkBoxOther.isChecked
+        val checkBoxEmpty = if (view.inputPrice.visibility == View.GONE) false else !electricCheck && !dailyCheck && !otherCheck
         if (checkBoxEmpty) {
             ToastUtil.showToastBottom(view, KIND_EMPTY_HINT)
             return false
         }
 
-        ToastUtil.showToastBottom(view, ALL_FULL)
         return true
     }
 

@@ -113,7 +113,7 @@ class MeFragment : Fragment() {
             RxClickUtil.clickEvent(notificationIcon, it)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    DialogManager.showNotificationDialog(requireContext(), false)
+                    DialogManager.showNotificationDialog(requireActivity(), false)
                 }
 
             RxClickUtil.clickEvent(relativeLayoutPrefer, it)

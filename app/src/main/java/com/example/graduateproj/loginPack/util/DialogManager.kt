@@ -19,6 +19,11 @@ object DialogManager {
 
     private const val HAS_DYNAMIC_HINT = "今日有新动态噢！"
     private const val NO_DYNAMIC_HINT = "今天没有新动态，快去圈子逛逛吧！"
+    private const val BUTTON_HINT = "知道啦"
+    private const val PUBLISH_DONE = "已经发布完成啦，快去看看吧！"
+    private const val GO_SEE = "去看看"
+    private const val ME_NOTIFICATION_DIALOG_KIND = -1
+    private const val PUBLISH_NOTIFICATION_DIALOG_KIND = 1
 
     fun showVerifyCodeDialog(@NonNull context: Context) {
         val dialog = EasyDialog(context, R.style.verify_dialog)
@@ -38,11 +43,11 @@ object DialogManager {
         dialog.show()
     }
 
-    fun showNotificationDialog(@NonNull context: Context, hasDynamic: Boolean) {
+    fun showNotificationDialog(@NonNull context: Activity, hasDynamic: Boolean) {
         val dialog: NotificationDialog = if (hasDynamic) {
-            NotificationDialog(context, HAS_DYNAMIC_HINT)
+            NotificationDialog(context, HAS_DYNAMIC_HINT, BUTTON_HINT, ME_NOTIFICATION_DIALOG_KIND)
         } else {
-            NotificationDialog(context, NO_DYNAMIC_HINT)
+            NotificationDialog(context, NO_DYNAMIC_HINT, BUTTON_HINT, ME_NOTIFICATION_DIALOG_KIND)
         }
 
         val window = dialog.window
@@ -67,6 +72,18 @@ object DialogManager {
                 ScreenUtil.dp2pxInt(context, ADD_DONATE_DIALOG_MAX_HEIGHT)
             )
             setWindowAnimations(R.style.dialogAnimation)
+        }
+
+        dialog.show()
+    }
+
+    fun showPublishDoneDialog(@NonNull context: Activity) {
+        val dialog = NotificationDialog(context, PUBLISH_DONE, GO_SEE, PUBLISH_NOTIFICATION_DIALOG_KIND)
+
+        val window = dialog.window
+        window?.apply {
+            setGravity(Gravity.CENTER)
+            setWindowAnimations(R.style.notificationAnimation)
         }
 
         dialog.show()

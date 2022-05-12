@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.graduateproj.R
 import com.example.graduateproj.commonUI.RoundCornerButton
 import com.example.graduateproj.commonUtil.*
+import com.example.graduateproj.loginPack.util.DialogManager
 import com.example.graduateproj.mainPack.donatePack.model.DonateJsonBean
 import com.example.graduateproj.mainPack.donatePack.presenter.SaleInfoPresenter
 import com.example.graduateproj.mainPack.donatePack.util.PublishKind
@@ -139,7 +140,6 @@ class SaleInfoActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
                                 saleName = DetailStateUtil.getInstance(this).localSelfNameOrDefault,
                                 saleIcon = saleInfoPresenter.getMeHead()?.toString()
                             )
-
                             RxBus.getInstance().post(item)
                         }
 
@@ -153,10 +153,10 @@ class SaleInfoActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
                                 userHead = saleInfoPresenter.getMeHead()?.toString(),
                                 kind = getKind()
                             )
-
                             RxBus.getInstance().post(item)
                         }
                     }
+                    DialogManager.showPublishDoneDialog(this)
                 }
             }
     }
