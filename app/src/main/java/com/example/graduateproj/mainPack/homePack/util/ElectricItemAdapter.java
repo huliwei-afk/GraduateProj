@@ -41,9 +41,13 @@ public class ElectricItemAdapter extends RecyclerView.Adapter<ElectricItemAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RecyclerBean.RecyclerItemBean itemBean = beanList.get(position);
 
-        Glide.with(context).load(itemBean.getSaleImage()).apply(RequestOptions.bitmapTransform(new RoundedCorners(20))).into(holder.saleImage);
-        Glide.with(context).load(itemBean.getUserHead()).into(holder.userHead);
+        if (itemBean.getUserHead() == null) {
+            Glide.with(context).load(R.drawable.ic_launcher_background).into(holder.userHead);
+        } else {
+            Glide.with(context).load(itemBean.getUserHead()).into(holder.userHead);
+        }
 
+        Glide.with(context).load(itemBean.getSaleImage()).apply(RequestOptions.bitmapTransform(new RoundedCorners(20))).into(holder.saleImage);
         holder.userName.setText(itemBean.getUserName());
         holder.saleText.setText(itemBean.getSaleText());
         holder.salePrice.setText(itemBean.getSalePrice());

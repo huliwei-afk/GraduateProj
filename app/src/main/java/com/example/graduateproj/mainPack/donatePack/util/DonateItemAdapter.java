@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.SelectorImageView;
 import com.example.graduateproj.commonUtil.AppNavigator;
@@ -41,9 +43,9 @@ public class DonateItemAdapter extends RecyclerView.Adapter<DonateItemAdapter.Vi
         DonateJsonBean.DonateItemBean itemBean = beanList.get(position);
 
         if (itemBean.getSaleIcon() == null) {
-            Glide.with(context).load(R.drawable.ic_launcher_background).into(holder.saleIcon);
+            Glide.with(context).load(R.drawable.ic_launcher_background).apply(RequestOptions.bitmapTransform(new RoundedCorners(10))).into(holder.saleIcon);
         } else {
-            Glide.with(context).load(itemBean.getSaleIcon()).into(holder.saleIcon);
+            Glide.with(context).load(itemBean.getSaleIcon()).apply(RequestOptions.bitmapTransform(new RoundedCorners(10))).into(holder.saleIcon);
         }
         holder.saleName.setText(itemBean.getSaleName());
         Glide.with(context).load(itemBean.getSaleImage()).into(holder.saleImage);

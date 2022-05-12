@@ -127,11 +127,16 @@
 
         <EditText
             android:id="@+id/input_good_description"
-            style="@style/SaleInfoEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:gravity="top|start"
-            android:hint="@string/input_good_description" />
+            android:background="@null"
+            android:gravity="top"
+            android:hint="@string/input_good_description"
+            android:minLines="1" />
     </RelativeLayout>
 
     <com.example.graduateproj.commonUI.RoundCornerButton

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.graduateproj.R;
 import com.example.graduateproj.commonUI.SelectorImageView;
@@ -42,9 +43,13 @@ public class DailyItemAdapter extends RecyclerView.Adapter<DailyItemAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RecyclerBean.RecyclerItemBean itemBean = beanList.get(position);
 
-        Glide.with(context).load(itemBean.getSaleImage()).apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20, 20, 0, 0))).into(holder.saleImage);
-        Glide.with(context).load(itemBean.getUserHead()).into(holder.userHead);
+        if (itemBean.getUserHead() == null) {
+            Glide.with(context).load(R.drawable.ic_launcher_background).into(holder.userHead);
+        } else {
+            Glide.with(context).load(itemBean.getUserHead()).into(holder.userHead);
+        }
 
+        Glide.with(context).load(itemBean.getSaleImage()).apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20, 20, 0, 0))).into(holder.saleImage);
         holder.userName.setText(itemBean.getUserName());
         holder.saleText.setText(itemBean.getSaleText());
         holder.salePrice.setText(itemBean.getSalePrice());
